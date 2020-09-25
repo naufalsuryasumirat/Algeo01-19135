@@ -1,6 +1,6 @@
 package com.algeo.main;
 
-import com.algeo.matrix.Matrix;
+import com.algeo.matrix.*;
 
 public class MainApp {
     public static void main (String[] args)
