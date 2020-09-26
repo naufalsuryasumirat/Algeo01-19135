@@ -8,11 +8,6 @@ public class Matrix {
     int rows;
     int columns;
 
-    public static void main (String[] args)
-    {
-        System.out.println("Hello world");
-    }
-
     // Constructors
     public void Matrix(int rows, int columns)
     {
