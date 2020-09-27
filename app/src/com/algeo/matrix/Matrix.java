@@ -32,4 +32,31 @@ public class Matrix {
     {
         System.out.println("Testing TEST function");
     }
+
+    public Matrix GetEchelonMatrix(Matrix data)
+    {
+        Matrix eMatrix = new Matrix();
+
+        return eMatrix;
+    }
+
+    public Matrix GetReducedEchelonMatrix(Matrix data)
+    {
+        Matrix reMatrix = new Matrix();
+
+
+        return reMatrix;
+    }
+
+    public void ResizeMatrix(Matrix data)
+    {
+
+    }
+
+    public Matrix GetResizeMatrix(Matrix data, int newCol, int newRow)
+    {
+        Matrix rMatrix = new Matrix();
+        return rMatrix;
+    }
+
 }
