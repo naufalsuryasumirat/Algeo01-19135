@@ -40,6 +40,7 @@ public class Determinan {
     }
     public float hitungDeterminanOBE(float [][] Matriks, int ukuran) {
         int count_swap = 0;
+        int sign = 0;
         float temp;
         //algoritma membuat matriks menjadi segitiga atas
         for (int j = 0; j < ukuran; j++) {
@@ -75,8 +76,15 @@ public class Determinan {
             }
         }
         float determinan = 1;
+        if (count_swap % 2 == 0) {
+            sign = 1;
+        }
+        else {
+            sign = -1;
+        }
         for (int k = 0; k < ukuran; k++) {
             determinan = determinan * Matriks[k][k];
+            determinan = determinan * sign;
         }
         return determinan;
     }
