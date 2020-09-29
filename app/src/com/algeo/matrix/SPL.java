@@ -1,7 +1,7 @@
 package com.algeo.matrix;
 
 public class SPL {
-    Matrix matrixAugmented = new Matrix();
+    Matrix matrixAugmented = new Matrix(1,1);
     public void splGaussJordan() {
         matrixAugmented.makeMatrix();
         matrixAugmented.bacaMatrix();

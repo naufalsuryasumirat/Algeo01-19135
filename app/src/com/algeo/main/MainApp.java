@@ -8,7 +8,7 @@ public class MainApp {
     public static void main (String[] args)
     {
         System.out.println("Hello world");
-        Matrix test = new Matrix();
+        Matrix test = new Matrix(1, 1);
         test.Test();
     }
 }

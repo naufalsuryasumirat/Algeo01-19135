@@ -2,6 +2,7 @@ package com.algeo.matrix;
 
 
 import java.util.Scanner;
+import java.math.BigDecimal;
 
 public class Matrix {
 
@@ -11,7 +12,7 @@ public class Matrix {
     int columns;
 
     // Constructors
-    public void Matrix(int rows, int columns)
+    public Matrix(int rows, int columns)
     {
         this.rows = rows;
         this.columns = columns;
@@ -35,31 +36,34 @@ public class Matrix {
         System.out.println("Testing TEST function");
     }
 
-    public Matrix GetEchelonMatrix(Matrix data)
+    public Matrix GetEchelonMatrix()
     {
-        Matrix eMatrix = new Matrix();
+        Matrix eMatrix = new Matrix(this.rows, this.columns);
 
         return eMatrix;
     }
 
-    public Matrix GetReducedEchelonMatrix(Matrix data)
+    public Matrix GetReducedEchelonMatrix()
     {
-        Matrix reMatrix = new Matrix();
+        Matrix reMatrix = new Matrix(this.rows, this.columns);
 
 
         return reMatrix;
     }
 
-    public void ResizeMatrix(Matrix data)
+    public void ResizeMatrix(int newRow, int newCol)
     {
+        Matrix rMatrix = new Matrix(newRow, newCol);
+
 
     }
 
-    public Matrix GetResizeMatrix(Matrix data, int newCol, int newRow)
+    public Matrix GetResizeMatrix(int newRow, int newCol)
     {
-        Matrix rMatrix = new Matrix();
+        Matrix rMatrix = new Matrix(newRow, newCol);
         return rMatrix;
     }
+
 
     public void makeMatrix() {
         /** ALGORITMA **/
@@ -226,5 +230,6 @@ public class Matrix {
     }
 
     public void sortBarisBasedOnColumnVal (int column){
+
     }
 }
