@@ -42,8 +42,13 @@ public class MainApp {
         BDMatrix A = new BDMatrix(3, 3, testMatrix);
 
         A.printMatrix();
+        A.subtractRows(1, 2);
+        A.printMatrix("SUBTRACTED");
 
+        /*
         SPL balikan = new SPL();
         balikan.Balikan();
+
+         */
     }
 }

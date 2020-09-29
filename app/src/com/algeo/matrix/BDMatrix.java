@@ -109,6 +109,11 @@ public class BDMatrix {
         }
     }
 
+    public void printMatrix(String message)
+    {
+        System.out.println(message);
+        printMatrix();
+    }
 
     public void upperTri()
     {
@@ -168,7 +173,7 @@ public class BDMatrix {
         for(int i=0; i < columns; i++)
         {
             BigDecimal value = getElmt(row1, i).subtract(getElmt(row2, i), mc);
-            setElmt(row1, 1, value);
+            setElmt(row1, i, value);
         }
 
     }
