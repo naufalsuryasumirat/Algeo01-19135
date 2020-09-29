@@ -95,6 +95,16 @@ public class BDMatrix {
         element[row] = data;
     }
 
+    public int getRows()
+    {
+        return rows;
+    }
+
+    public int getColumns()
+    {
+        return columns;
+    }
+
     public void setMathContext(int val)
     {
         if (val == 0)
@@ -131,6 +141,7 @@ public class BDMatrix {
     * PUBLIC METHODS
     * */
 
+    /** MATRIX LOGGING */
     public void printMatrix()
     {
         for(int i= 0; i < rows; i++)
@@ -150,6 +161,7 @@ public class BDMatrix {
         printMatrix();
     }
 
+    /** MATRIX MANIPULATION */
     public void upperTri()
     {
         orderRows();
@@ -225,6 +237,7 @@ public class BDMatrix {
         }
     }
 
+    /** MATRIX MODIFIERS */
     public void addHorizontal(BDMatrix newData)
     {
         BigDecimal[][] temp = new BigDecimal[rows][columns + newData.columns];
@@ -238,6 +251,20 @@ public class BDMatrix {
         columns += newData.columns;
         element = temp;
     }
+
+    public void removeHorizontal(int left, int right)
+    {
+        BigDecimal[][] temp = new BigDecimal[rows][columns - left - right];
+
+        for(int i = 0; i < rows; i++)
+        {
+            System.arraycopy(getRow(i), left, temp[i], 0, columns - left - right);
+        }
+
+        columns = columns - left - right;
+        element = temp;
+    }
+
 
     public void orderRows()
     {

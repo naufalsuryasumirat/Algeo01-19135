@@ -52,7 +52,9 @@ public class MainApp {
         };
 
         BDMatrix A = new BDMatrix(3, 4, testMatrix);
-        BDMatrix B = new BDMatrix(3);
+        BDMatrix B = new BDMatrix(A.getRows());
+
+        int size = A.getColumns();
 
         A.printMatrix("A");
         B.printMatrix("B");
@@ -70,15 +72,15 @@ public class MainApp {
         A.addHorizontal(B);
         A.printMatrix();
 
-        System.out.println("===============================");
+//        System.out.println("===============================");
 
-        A.upperTri();
-        A.printMatrix("UPPER TRI");
-
-        System.out.println("===============================");
-
-        A.echelon();
-        A.printMatrix("ECHELON MATRIX");
+//        A.upperTri();
+//        A.printMatrix("UPPER TRI");
+//
+//        System.out.println("===============================");
+//
+//        A.echelon();
+//        A.printMatrix("ECHELON MATRIX");
 
         System.out.println("===============================");
 
@@ -87,6 +89,8 @@ public class MainApp {
 
         System.out.println("===============================");
 
+        A.removeHorizontal(size, 0);
+        A.printMatrix("INVERSE");
 
         /*
         SPL balikan = new SPL();

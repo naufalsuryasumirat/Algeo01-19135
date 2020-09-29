@@ -1,6 +1,7 @@
 package com.algeo.matrix;
 
 public class Inverse {
+
     public double[][] getInvers(double[][] matrixA){
         // Menggunakan sifat matrix [A|I]=[I|A^-1]
         int i,j,k;
@@ -93,6 +94,18 @@ public class Inverse {
         System.out.println();
 
         return matrixAinverse.element;
+    }
+
+    public BDMatrix getInverse(BDMatrix data)
+    {
+        int size = data.getColumns();
+        BDMatrix I = new BDMatrix(data.rows);
+
+        data.addHorizontal(I);
+        data.reducedEchelon();
+        data.removeHorizontal(size, 0);
+
+        return data;
     }
 
 }
