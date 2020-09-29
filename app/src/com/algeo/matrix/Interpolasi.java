@@ -59,8 +59,8 @@ public class Interpolasi {
         }
         //pengurangan mulai dari kolom paling akhir
         //cek bener apa engga
-        for (int j = ukuran - 1; j > 1; j--) {
-            for (int i = (j - 1); i > 0; i--) {
+        for (int j = ukuran - 1; j > 0; j--) {
+            for (int i = (j - 1); i >= 0; i--) {
                 double numeratorRatio = MatriksInterpolasi[i][j];
                 double denominatorRatio = MatriksInterpolasi[j][j];
                 for (int kolom_kurang = 0; kolom_kurang < kolomInterpolasi; kolom_kurang++) {
@@ -95,7 +95,15 @@ public class Interpolasi {
             if (i != (ukuran - 1)) {
                 System.out.printf(" + ");
             }
+            if (i == (ukuran - 1)) {
+                System.out.printf("%n");
+            }
         }
-        //dikit lagi ada yang salah ini
+        double x = scan.nextDouble();
+        double y = Hasil[0];
+        for (int i = 1; i < ukuran; i++) {
+            y = y + (Hasil[i] * Math.pow(x, i));
+        }
+        System.out.println(y);
     }
 }
