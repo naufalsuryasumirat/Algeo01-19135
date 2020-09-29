@@ -5,6 +5,7 @@ import java.util.Scanner;
 import com.algeo.matrix.BDMatrix;
 import com.algeo.matrix.Matrix;
 import com.algeo.matrix.Determinan;
+import com.algeo.matrix.SPL;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
@@ -42,5 +43,7 @@ public class MainApp {
 
         A.printMatrix();
 
+        SPL balikan = new SPL();
+        balikan.Balikan();
     }
 }

@@ -36,6 +36,7 @@ public class Matrix {
         System.out.println("Testing TEST function");
     }
 
+
     public Matrix GetEchelonMatrix()
     {
         Matrix eMatrix = new Matrix(this.rows, this.columns);
@@ -68,19 +69,19 @@ public class Matrix {
     public void makeMatrix() {
         /** ALGORITMA **/
         Scanner scan = new Scanner(System.in);
-        rows = scan.nextInt();
-        columns = scan.nextInt();
-        element = new double[rows][columns];
+        this.rows = scan.nextInt();
+        this.columns = scan.nextInt();
+        this.element = new double[rows][columns];
     }
 
     public void bacaMatrix() {
         /** KAMUS LOKAL **/
         int i, j;
         /** ALGORITMA **/
-        Scanner scan = new Scanner(System.in);
+        Scanner scan1 = new Scanner(System.in);
         for (i = 0; i < this.rows; ++i) {
             for (j = 0; j < this.columns; ++j) {
-                this.element[i][j] = scan.nextDouble();
+                this.element[i][j] = scan1.nextDouble();
             }
         }
     }
@@ -92,8 +93,14 @@ public class Matrix {
         /** ALGORITMA **/
         for (i = 0; i < this.rows; ++i) {
             for (j = 0; j < this.columns; ++j) {
-                if ((this.element[i][j] < 0.00001 && this.element[i][j] > 0) || (this.element[i][j] > -0.00001 && this.element[i][j] < 0)) {
-                    this.element[i][j] = 0;
+                if ((this.element[i][j]-(int)this.element[i][j] < 0.00001 && this.element[i][j]-(int)this.element[i][j] > 0) || (this.element[i][j]-(int)this.element[i][j] > -0.00001 && this.element[i][j]-(int)this.element[i][j] < 0)) {
+                    this.element[i][j] = (int)this.element[i][j];
+                }
+                else if(this.element[i][j]-(int)this.element[i][j] > 0.9999) {
+                    this.element[i][j] = (int)this.element[i][j]+1;
+                }
+                else if(this.element[i][j]-(int)this.element[i][j] < -0.9999) {
+                    this.element[i][j] = (int)this.element[i][j]-1;
                 }
             }
         }
@@ -229,7 +236,31 @@ public class Matrix {
         this.bulatElemenKeNol();
     }
 
-    public void sortBarisBasedOnColumnVal (int column){
+    public void MKaliSkalar(double K) {
+        int i, j;
+        for (i = 0; i < this.rows; ++i) {
+            for (j = 0; j < this.columns; ++j) {
+                this.element[i][j] *= K;
+            }
+        }
 
+    }
+
+    public double[][] MkaliMatrix(double[][] matrix){
+        // Matrix M (this.element) dikali matrix 'matrix'
+        int i, j, k;
+        double[][] MH = new double[this.rows][matrix[0].length];
+        for (i = 0; i < this.rows; ++i) {
+            for (j = 0; j < matrix[0].length; ++j) {
+                MH[i][j] = 0;
+                for (k=0; k<this.columns; ++k){
+                    MH[i][j] += this.element[i][k] * matrix[k][j];
+                }
+            }
+        }
+        return MH;
+    }
+
+    public void sortBarisBasedOnColumnVal (int column){
     }
 }

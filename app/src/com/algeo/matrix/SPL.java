@@ -1,8 +1,8 @@
 package com.algeo.matrix;
 
 public class SPL {
-    Matrix matrixAugmented = new Matrix(1,1);
     public void splGaussJordan() {
+        Matrix matrixAugmented = new Matrix(0,0);
         matrixAugmented.makeMatrix();
         matrixAugmented.bacaMatrix();
 
@@ -106,6 +106,7 @@ public class SPL {
     }
 
     public void splGauss(){
+        Matrix matrixAugmented = new Matrix(1,1);
         matrixAugmented.makeMatrix();
         matrixAugmented.bacaMatrix();
 
@@ -160,10 +161,167 @@ public class SPL {
         // Tulis matriks augmented dalam bentuk matriks eselon tereduksi
         matrixAugmented.TulisMatrix();
     }
+
+
     public void Kramer(){
+        int i,j,k,l;
+        Matrix matrixAugmented = new Matrix(0,0);
+        matrixAugmented.makeMatrix();
+        matrixAugmented.bacaMatrix();
+        double detA;
+        /*
+        System.out.println();
+        for (i=0; i< matrixAugmented.rows; ++i) {
+            System.out.print(matrixAugmented.element[i][0]);
+            for (k=1; k< matrixAugmented.columns;++k) {
+                System.out.print(" "+matrixAugmented.element[i][k]);
+                if ((i != matrixAugmented.rows-1) && (k == matrixAugmented.columns-1)) {
+                    System.out.print("\n");
+                }
+            }
+        }
+        System.out.println();
+        */
+
+        // Set matrix A dari matrix augmented
+        double[][] matrixA = new double[matrixAugmented.rows][matrixAugmented.rows];
+        for (i=0;i<matrixAugmented.rows;++i){
+            for (j=0;j<matrixAugmented.rows;++j){
+                matrixA[i][j] = matrixAugmented.element[i][j];
+            }
+        }
+
+        /*
+        System.out.println();
+        for (i=0; i< matrixAugmented.rows; ++i) {
+            System.out.print(matrixA[i][0]);
+            for (k=1; k< matrixAugmented.rows;++k) {
+                System.out.print(" "+matrixAugmented.element[i][k]);
+                if ((i != matrixAugmented.rows-1) && (k == matrixAugmented.columns-1)) {
+                    System.out.print("\n");
+                }
+            }
+        }
+        System.out.println();
+        */
+
+        //Set matrix B dari matrix augmented
+        double[] matrixB = new double[matrixAugmented.rows];
+        for (i=0;i<matrixAugmented.rows;++i){
+            matrixB[i] = matrixAugmented.element[i][matrixAugmented.columns-1];
+        }
+
+        if (matrixAugmented.rows != matrixAugmented.columns-1){
+            System.out.println("Matriks A bukan matriks bujur sangkar");
+        }
+        else {
+            Determinan det = new Determinan();
+            detA = det.hitungDeterminanOBE(matrixA, matrixAugmented.rows);
+            double[] ArrayDet = new double[matrixAugmented.rows];
+            for (j=0; j<matrixAugmented.rows; ++j){
+                // Kopi elemen matrix A ke matrix temporary
+                double[][] tempMatrix = new double[matrixAugmented.rows][matrixAugmented.rows];
+                for (k=0;k<matrixAugmented.rows;++k){
+                    for (l=0;l<matrixAugmented.rows;++l){
+                        tempMatrix[k][l] = matrixA[k][l];
+                    }
+                }
+                /*
+                System.out.println();
+                for (i=0; i< matrixAugmented.rows; ++i) {
+                    System.out.print(tempMatrix[i][0]);
+                    for (k=1; k< matrixAugmented.rows;++k) {
+                        System.out.print(" "+tempMatrix[i][k]);
+                        if ((i != matrixAugmented.rows-1) && (k == matrixAugmented.rows-1)) {
+                            System.out.print("\n");
+                        }
+                    }
+                }
+                */
+
+
+                // Ganti satu kolom matrix A dengan matrix B
+                for (i=0;i<matrixAugmented.rows;++i){
+                    tempMatrix[i][j] = matrixB[i];
+                }
+
+                ArrayDet[j] = det.hitungDeterminanOBE(tempMatrix, matrixAugmented.rows);
+                System.out.println("det A"+(j+1)+" = "+ArrayDet[j]);
+            }
+
+            System.out.println("det A"+ " = "+detA);
+            for (i=0; i< matrixAugmented.rows; ++i) {
+                System.out.println("x"+(i+1)+" = "+(ArrayDet[i]/detA));
+            }
+        }
 
     }
+
     public void Balikan(){
+        // Menggunakan rumus [A|I]= [I|A^-1] untuk mendapatkan matriks invers.
+
+        int i,j,k,l;
+
+        Matrix matrixAugmented = new Matrix(0,0);
+        matrixAugmented.makeMatrix();
+        matrixAugmented.bacaMatrix();
+
+        Matrix matrixA = new Matrix(matrixAugmented.rows,matrixAugmented.rows);
+        Matrix matrixX = new Matrix(matrixAugmented.rows,1);
+        Matrix matrixB = new Matrix(matrixAugmented.rows,1);
+        Matrix matrixAinverse = new Matrix(matrixAugmented.rows,matrixAugmented.rows);
+
+        double[][] xArray;
+
+        Inverse inv = new Inverse();
+
+        /*
+        System.out.println();
+        for (i=0; i< matrixAugmented.rows; ++i) {
+            System.out.print(matrixAugmented.element[i][0]);
+            for (k=1; k< matrixAugmented.columns;++k) {
+                System.out.print(" "+matrixAugmented.element[i][k]);
+                if ((i != matrixAugmented.rows-1) && (k == matrixAugmented.columns-1)) {
+                    System.out.print("\n");
+                }
+            }
+        }
+        System.out.println();
+        */
+
+        // Set matrix A dari matrix augmented
+        for (i=0;i<matrixA.rows;++i) {
+            for (j = 0; j < matrixA.columns; ++j) {
+                matrixA.element[i][j] = matrixAugmented.element[i][j];
+            }
+        }
+
+        // Set matrix B dari matrix augmented
+        for (i=0;i<matrixB.rows;++i) {
+            for (j = 0; j < matrixB.columns; ++j) {
+                matrixB.element[i][j] = matrixAugmented.element[i][matrixAugmented.columns-1];
+            }
+        }
+
+        // Olah data sehingga menghasilkan matrix A^-1
+        matrixAinverse.element = inv.getInvers(matrixA.element);
+
+        // Operasikan data matrix inverse sehingga mengeluarkan matrix yang mengeuarkan nilai variabel
+        matrixX.element = matrixAinverse.MkaliMatrix(matrixB.element); // Lalu kalikan matrix inverse dengan matrix B
+        matrixX.bulatElemenKeNol();
+
+        // Cetak solusi
+        System.out.println();
+        System.out.println("Solusi SPL :");
+        for (i=0; i< matrixX.rows; ++i) {
+            for (j=0; j< matrixX.columns;++j) {
+                System.out.println("x"+(i+1)+" = "+ matrixX.element[i][j]);
+            }
+        }
+
+        // Set nilai matrix x dari nilai matrix inverse yang sudah diolah
+
+        // Ekstrak matrix A^-1
 
     }
 
