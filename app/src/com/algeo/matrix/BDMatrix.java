@@ -34,6 +34,13 @@ public class BDMatrix {
         this.element = new BigDecimal[row][column];
     }
 
+    public BDMatrix(int row, int column, BigDecimal[][] data)
+    {
+        this.rows = row;
+        this.columns = column;
+        this.element = data;
+    }
+
     /**
     * GETTERS AND SETTERS
     * */
