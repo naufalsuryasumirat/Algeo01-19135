@@ -52,7 +52,7 @@ public class MainApp {
         };
 
         BDMatrix A = new BDMatrix(3, 4, testMatrix);
-        BDMatrix B = new BDMatrix(3, 3);
+        BDMatrix B = new BDMatrix(3);
 
         A.printMatrix("A");
         B.printMatrix("B");
@@ -61,9 +61,14 @@ public class MainApp {
 
         System.out.println("===============================");
 
-        System.out.println("DETERMINANT");
-        BigDecimal det =  determinator.hitungDeterminanOBE(A);
-        System.out.println(det);
+//        System.out.println("DETERMINANT");
+//        BigDecimal det =  determinator.hitungDeterminanOBE(A);
+//        System.out.println(det);
+
+        System.out.println("===============================");
+
+        A.addHorizontal(B);
+        A.printMatrix();
 
         System.out.println("===============================");
 
@@ -79,6 +84,9 @@ public class MainApp {
 
         A.reducedEchelon();
         A.printMatrix("REDUCED ECHELON MATRIX");
+
+        System.out.println("===============================");
+
 
         /*
         SPL balikan = new SPL();

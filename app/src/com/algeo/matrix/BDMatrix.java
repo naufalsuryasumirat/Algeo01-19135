@@ -48,6 +48,29 @@ public class BDMatrix {
         this.element = data;
     }
 
+    public BDMatrix(int size)
+    {
+        // CREATES IDENTITY MATRICES
+        this.rows = size;
+        this.columns = size;
+
+        this.element = new BigDecimal[size][size];
+
+        for (int i = 0; i < rows; i++)
+        {
+            for (int j = 0; j < columns; j++)
+            {
+                if (i != j)
+                {
+                    this.element[i][j] = zero;
+                } else {
+                    this.element[i][j] = BigDecimal.ONE;
+                }
+            }
+        }
+    }
+
+
     /**
     * GETTERS AND SETTERS
     * */
@@ -202,9 +225,18 @@ public class BDMatrix {
         }
     }
 
-    public void resizeHorizontal(int newWidth)
+    public void addHorizontal(BDMatrix newData)
     {
-        BigDecimal[][] newData = new BigDecimal[rows][newWidth];
+        BigDecimal[][] temp = new BigDecimal[rows][columns + newData.columns];
+
+        for(int i = 0; i < rows; i++)
+        {
+            System.arraycopy(getRow(i), 0, temp[i], 0, columns);
+            System.arraycopy(newData.getRow(i), 0, temp[i], columns, newData.columns);
+        }
+
+        columns += newData.columns;
+        element = temp;
     }
 
     public void orderRows()
