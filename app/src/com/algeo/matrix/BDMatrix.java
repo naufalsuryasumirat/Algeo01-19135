@@ -132,19 +132,19 @@ public class BDMatrix {
     * */
 
     /** ROW ARITHMETICS */
-    private BigDecimal[] addRows(int row1, int row2)
+    public void addRows(int row1, int row2)
     {
         BigDecimal[] temp = new BigDecimal[columns];
 
         for(int i=0; i < columns; i++)
         {
-            temp[i] = getElmt(row1, i).add(getElmt(row2, i), mc);
+            BigDecimal value = getElmt(row1, i).add(getElmt(row2, i), mc);
+            setElmt(row1, i, value);
         }
 
-        return temp;
     }
 
-    private void subtractRows(int row1, int row2)
+    public void subtractRows(int row1, int row2)
     {
         for(int i=0; i < columns; i++)
         {
@@ -154,7 +154,7 @@ public class BDMatrix {
 
     }
 
-    private void multiplyRow(int row, BigDecimal C)
+    public void multiplyRow(int row, BigDecimal C)
     {
         BigDecimal value = new BigDecimal(0);
         for(int i=0; i < columns; i++)
@@ -164,7 +164,7 @@ public class BDMatrix {
         }
     }
 
-    private void divideRow(int row, BigDecimal C)
+    public void divideRow(int row, BigDecimal C)
     {
         BigDecimal value = new BigDecimal(0);
         for(int i=0; i < columns; i++)
