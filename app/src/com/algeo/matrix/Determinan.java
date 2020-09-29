@@ -38,6 +38,13 @@ public class Determinan {
         return determinan;
     }
     public double hitungDeterminanOBE(double [][] Matriks, int ukuran) {
+        //algoritma meng-copy matriks agar bentuk Matriks input tidak berubah
+        double[][] MatriksOBE = new double[ukuran][ukuran];
+        for (int baris = 0; baris < ukuran; baris++) {
+            for (int kolom = 0; kolom < ukuran; kolom++) {
+                MatriksOBE[baris][kolom] = Matriks[baris][kolom];
+            }
+        }
         int count_swap = 0;
         int sign = 0;
         double temp;
@@ -46,20 +53,21 @@ public class Determinan {
             //algoritma sorting untuk kolom dari terbesar ke terkecil
             for (int sorting = j; sorting < (ukuran - 1); sorting++) {
                 for (int sorting2 = (sorting + 1); sorting2 < ukuran; sorting2++) {
-                    if (Matriks[sorting][j] < Matriks[sorting2][j]) {
+                    if (MatriksOBE[sorting][j] < MatriksOBE[sorting2][j]) {
                         for (int kolom_sorting = 0; kolom_sorting < ukuran; kolom_sorting++) {
-                            temp = Matriks[sorting][kolom_sorting];
-                            Matriks[sorting][kolom_sorting] = Matriks[sorting2][kolom_sorting];
-                            Matriks[sorting2][kolom_sorting] = temp;
+                            temp = MatriksOBE[sorting][kolom_sorting];
+                            MatriksOBE[sorting][kolom_sorting] = MatriksOBE[sorting2][kolom_sorting];
+                            MatriksOBE[sorting2][kolom_sorting] = temp;
                         }
                         count_swap = count_swap + 1;
                     }
                 }
             }
             for (int i = (j + 1); i < ukuran; i++) {
-                double ratio = (Matriks[i][j]) / Matriks[j][j];
+                double numeratorRatio = MatriksOBE[i][j];
+                double denominatorRatio = MatriksOBE[j][j];
                 for (int kolom_kurang = 0; kolom_kurang < ukuran; kolom_kurang++) {
-                    Matriks[i][kolom_kurang] = Matriks[i][kolom_kurang] - (ratio * Matriks[j][kolom_kurang]);
+                    MatriksOBE[i][kolom_kurang] = MatriksOBE[i][kolom_kurang] - (numeratorRatio * MatriksOBE[j][kolom_kurang] / denominatorRatio);
                 }
             }
         }
@@ -71,9 +79,11 @@ public class Determinan {
             sign = -1;
         }
         for (int k = 0; k < ukuran; k++) {
-            determinan = determinan * Matriks[k][k];
+            determinan = determinan * MatriksOBE[k][k];
         }
         determinan = determinan * sign;
+        //round hingga 5 angka di belakang koma
+        determinan = Math.round(determinan * 100000.0) / 100000.0;
         return determinan;
     }
 }
