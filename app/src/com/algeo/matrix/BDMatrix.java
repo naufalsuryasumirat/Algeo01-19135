@@ -34,6 +34,13 @@ public class BDMatrix {
         this.element = new BigDecimal[row][column];
     }
 
+    public BDMatrix(int row, int column, BigDecimal[][] data)
+    {
+        this.rows = row;
+        this.columns = column;
+        this.element = data;
+    }
+
     /**
     * GETTERS AND SETTERS
     * */
@@ -89,6 +96,20 @@ public class BDMatrix {
     * PUBLIC METHODS
     * */
 
+    public void printMatrix()
+    {
+        for(int i= 0; i < rows; i++)
+        {
+            for(int j=0; j < columns; j++)
+            {
+                System.out.print(getElmt(i, j));
+            }
+
+            System.out.println();
+        }
+    }
+
+
     public void upperTri()
     {
         orderRows();
@@ -127,24 +148,22 @@ public class BDMatrix {
 
     }
 
-    /**
-    * PRIVATE METHODS
-    * */
+
 
     /** ROW ARITHMETICS */
-    private BigDecimal[] addRows(int row1, int row2)
+    public void addRows(int row1, int row2)
     {
         BigDecimal[] temp = new BigDecimal[columns];
 
         for(int i=0; i < columns; i++)
         {
-            temp[i] = getElmt(row1, i).add(getElmt(row2, i), mc);
+            BigDecimal value = getElmt(row1, i).add(getElmt(row2, i), mc);
+            setElmt(row1, i, value);
         }
 
-        return temp;
     }
 
-    private void subtractRows(int row1, int row2)
+    public void subtractRows(int row1, int row2)
     {
         for(int i=0; i < columns; i++)
         {
@@ -154,7 +173,7 @@ public class BDMatrix {
 
     }
 
-    private void multiplyRow(int row, BigDecimal C)
+    public void multiplyRow(int row, BigDecimal C)
     {
         BigDecimal value = new BigDecimal(0);
         for(int i=0; i < columns; i++)
@@ -164,7 +183,7 @@ public class BDMatrix {
         }
     }
 
-    private void divideRow(int row, BigDecimal C)
+    public void divideRow(int row, BigDecimal C)
     {
         BigDecimal value = new BigDecimal(0);
         for(int i=0; i < columns; i++)
@@ -173,6 +192,10 @@ public class BDMatrix {
             setElmt(row, i, value);
         }
     }
+
+    /**
+     * PRIVATE METHODS
+     * */
 
     /** ROW MANIPULATION */
     private void orderRows()
