@@ -4,6 +4,7 @@ import java.io.ObjectInputStream;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
+import java.util.Arrays;
 
 public class BDMatrix {
     // BigDecimal Matrix
@@ -14,7 +15,8 @@ public class BDMatrix {
 
     private BigDecimal zero = new BigDecimal(0.0);
 
-    private MathContext mc = new MathContext(0, RoundingMode.HALF_UP);
+    private MathContext mc = MathContext.DECIMAL32;
+
 
     /**
     * CONSTRUCTORS
@@ -32,6 +34,11 @@ public class BDMatrix {
         this.rows = row;
         this.columns = column;
         this.element = new BigDecimal[row][column];
+
+        for(BigDecimal[] re: this.element)
+        {
+            Arrays.fill(re, zero);
+        }
     }
 
     public BDMatrix(int row, int column, BigDecimal[][] data)
@@ -65,17 +72,20 @@ public class BDMatrix {
         element[row] = data;
     }
 
+    public void setMathContext(int val)
+    {
+        if (val == 0)
+        {
+            mc = MathContext.UNLIMITED;
+        } else {
+            mc = MathContext.DECIMAL32;
+        }
+
+    }
+
     public BigDecimal getLeadingElmt(int row)
     {
-        int i = 0;
-        while (i < columns)
-        {
-            if (getElmt(row, i).compareTo(zero) != 0)
-            {
-                return getElmt(row, i);
-            }
-        }
-        return zero;
+        return getElmt(row, getLeadingIndex(row));
     }
 
     public int getLeadingIndex(int row)
@@ -87,9 +97,11 @@ public class BDMatrix {
             {
                 return i;
             }
+
+            i++;
         }
 
-        return -1;
+        return columns-1;
     }
 
     /**
@@ -102,7 +114,7 @@ public class BDMatrix {
         {
             for(int j=0; j < columns; j++)
             {
-                System.out.print(getElmt(i, j));
+                System.out.print(getElmt(i, j).stripTrailingZeros() + " ");
             }
 
             System.out.println();
@@ -120,16 +132,39 @@ public class BDMatrix {
         orderRows();
         BigDecimal ratio = new BigDecimal(0);
 
-        for (int i = 0; i < rows; i++)
-        {
-            while (getLeadingIndex(i) < i && getLeadingIndex(i) != -1)
-            {
-                int sRow = getLeadingIndex(i);
-                ratio = getLeadingElmt(i).divide(getLeadingElmt(sRow), mc);
-                multiplyRow(sRow, ratio);
+        int limit;
 
+        if (rows > columns)
+        {
+            limit = columns;
+        } else {
+            limit = rows;
+        }
+
+
+        for (int i = 0; i < limit; i++)
+        {
+            int j = getLeadingIndex(i);
+            while (j < i)
+            {
+//                System.out.println("Testing row " + i + " Column " + j);
+
+                int sRow = getLeadingIndex(j);
+
+                ratio = getLeadingElmt(i).divide(getLeadingElmt(sRow), mc);
+
+                multiplyRow(sRow, ratio);
                 subtractRows(i, sRow);
+
+                divideRow(sRow, ratio);
+
+                j = getLeadingIndex(i);
             }
+        }
+
+        if (limit == columns)
+        {
+            orderRows();
         }
     }
 
@@ -145,15 +180,49 @@ public class BDMatrix {
 
     public void reducedEchelon()
     {
+        echelon();
 
+        for(int i = rows-1; i >= 0; i--)
+        {
+            int leader = getLeadingIndex(i);
+
+            for(int j = i; j >= 0; j--)
+            {
+            if (getElmt(j, leader).compareTo(zero) != 0 && leader != getLeadingIndex(j))
+                {
+                    BigDecimal target = getElmt(j, leader);
+                    multiplyRow(i, target);
+                    subtractRows(j, i);
+                    divideRow(i, target);
+
+//                    printMatrix("REDUCED " + j + " by " + i);
+                }
+
+            }
+        }
     }
 
-    public void resize()
+    public void resizeHorizontal(int newWidth)
     {
-
+        BigDecimal[][] newData = new BigDecimal[rows][newWidth];
     }
 
-
+    public void orderRows()
+    {
+        /*
+         * Orders rows by leading
+         * */
+        for(int i = 0; i < rows; i++)
+        {
+            for(int j = i; j < rows; j++)
+            {
+                if (isAleadingB(i, j) == -1)
+                {
+                    switchRows(i, j);
+                }
+            }
+        }
+    }
 
     /** ROW ARITHMETICS */
     public void addRows(int row1, int row2)
@@ -203,23 +272,6 @@ public class BDMatrix {
      * */
 
     /** ROW MANIPULATION */
-    private void orderRows()
-    {
-        /*
-        * Orders rows by leading
-        * */
-        for(int i = 0; i < rows; i++)
-        {
-            for(int j = i; j < rows; j++)
-            {
-                if (isAleadingB(i, j) == -1)
-                {
-                    switchRows(i, j);
-                }
-            }
-        }
-    }
-
     private void switchRows(int row1, int row2)
     {
         /*

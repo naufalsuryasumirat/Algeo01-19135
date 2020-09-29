@@ -86,4 +86,18 @@ public class Determinan {
         determinan = Math.round(determinan * 100000.0) / 100000.0;
         return determinan;
     }
+
+    public BigDecimal hitungDeterminanOBE(BDMatrix data)
+    {
+        BigDecimal determinant = new BigDecimal(1);
+        data.upperTri();
+
+        int i = 0;
+        for (i = 0; i < data.rows; i++)
+        {
+            determinant = determinant.multiply(data.getElmt(i, i));
+        }
+
+        return determinant;
+    }
 }
