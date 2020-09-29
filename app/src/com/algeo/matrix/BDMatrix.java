@@ -96,6 +96,20 @@ public class BDMatrix {
     * PUBLIC METHODS
     * */
 
+    public void printMatrix()
+    {
+        for(int i= 0; i < rows; i++)
+        {
+            for(int j=0; j < columns; j++)
+            {
+                System.out.print(getElmt(i, j));
+            }
+
+            System.out.println();
+        }
+    }
+
+
     public void upperTri()
     {
         orderRows();
@@ -134,9 +148,7 @@ public class BDMatrix {
 
     }
 
-    /**
-    * PRIVATE METHODS
-    * */
+
 
     /** ROW ARITHMETICS */
     public void addRows(int row1, int row2)
@@ -180,6 +192,10 @@ public class BDMatrix {
             setElmt(row, i, value);
         }
     }
+
+    /**
+     * PRIVATE METHODS
+     * */
 
     /** ROW MANIPULATION */
     private void orderRows()
