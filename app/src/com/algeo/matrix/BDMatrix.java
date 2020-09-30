@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
 import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class BDMatrix {
@@ -132,7 +133,7 @@ public class BDMatrix {
             i++;
         }
 
-        return columns-1;
+        return columns;
     }
 
     /**
@@ -230,28 +231,52 @@ public class BDMatrix {
         }
     }
 
-    public void reducedEchelon()
-    {
+    public void reducedEchelon() {
         echelon();
 
-        for(int i = rows-1; i >= 0; i--)
-        {
+        for (int i = rows - 1; i >= 0; i--) {
             int leader = getLeadingIndex(i);
 
-            for(int j = i; j >= 0; j--)
-            {
-            if (getElmt(j, leader).compareTo(zero) != 0 && leader != getLeadingIndex(j))
-                {
+            for (int j = i; j >= 0; j--) {
+                if (getElmt(j, leader).compareTo(zero) != 0 && leader != getLeadingIndex(j)) {
                     BigDecimal target = getElmt(j, leader);
                     multiplyRow(i, target);
                     subtractRows(j, i);
                     divideRow(i, target);
 
-//                    printMatrix("REDUCED " + j + " by " + i);
+                    //                    printMatrix("REDUCED " + j + " by " + i);
                 }
-
             }
         }
+
+        // REMOVING DUPLICATE LEADING ONES FROM TOP
+        int row = 0;
+        while (row < rows - 1) {
+            if (getLeadingIndex(row) == getLeadingIndex(row+1))
+            {
+                subtractRows(row+1, row);
+                divideRow(row+1, getLeadingElmt(row+1));
+                orderRows();
+            } else {
+                row++;
+            }
+        }
+
+        // REMOVING DUPLICATE LEADING ONES FROM BOTTOM
+        row = rows-1;
+        while (row > 0) {
+            for(int i = row; i >= 0; i--)
+            {
+                if(getElmt(i, getLeadingIndex(row)).compareTo(zero) != 0 && i != row)
+                {
+                    multiplyRow(row, getElmt(i, getLeadingIndex(row)));
+                    subtractRows(i, row);
+                    divideRow(row, getLeadingElmt(row));
+                }
+            }
+            row--;
+        }
+
     }
 
     /** MATRIX MODIFIERS */
