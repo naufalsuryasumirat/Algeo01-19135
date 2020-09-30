@@ -11,7 +11,7 @@ public class Inverse {
 
     public Inverse(BDMatrix input)
     {
-        
+        data = input;
     }
 
     public double[][] getInvers(double[][] matrixA){
@@ -108,7 +108,7 @@ public class Inverse {
         return matrixAinverse.element;
     }
 
-    public BDMatrix getInverse(BDMatrix data)
+    public BDMatrix getInverse()
     {
         int size = data.getColumns();
         BDMatrix I = new BDMatrix(data.rows);
