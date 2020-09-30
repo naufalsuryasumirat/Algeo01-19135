@@ -1,12 +1,14 @@
 package com.algeo.matrix;
 
 public class BDSPL {
+    BDMatrix original;
     BDMatrix data;
     String[] solution;
 
     public BDSPL(BDMatrix input)
     {
         data = input;
+        original = input;
     }
 
     public void hitungGauss()
