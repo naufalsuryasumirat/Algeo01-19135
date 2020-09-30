@@ -6,7 +6,7 @@ public class BDDeterminan {
     BigDecimal attributeDeterminan;
     BDMatrix attributeMatriks;
 
-    enum Metode {
+    public enum Metode {
         EK,
         OBE,
         NOTSET

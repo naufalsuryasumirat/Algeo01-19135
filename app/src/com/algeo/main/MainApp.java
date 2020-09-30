@@ -2,10 +2,7 @@ package com.algeo.main;
 
 import java.util.Scanner;
 
-import com.algeo.matrix.BDMatrix;
-import com.algeo.matrix.Matrix;
-import com.algeo.matrix.Determinan;
-import com.algeo.matrix.SPL;
+import com.algeo.matrix.*;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
@@ -21,9 +18,9 @@ public class MainApp {
         System.out.println("Testing BDMatrix");
         BigDecimal[][] testMatrix = {
                 {
-                        new BigDecimal(0),
                         new BigDecimal(1),
                         new BigDecimal(0),
+                        new BigDecimal(1),
                         new BigDecimal(0),
                         new BigDecimal(1),
                         new BigDecimal(0),
@@ -39,9 +36,9 @@ public class MainApp {
                         new BigDecimal(-1),
                 },
                 {
-                        new BigDecimal(0),
-                        new BigDecimal(1),
-                        new BigDecimal(0),
+                        new BigDecimal(3),
+                        new BigDecimal(4),
+                        new BigDecimal(4),
                         new BigDecimal(0),
                         new BigDecimal(0),
                         new BigDecimal(1),
@@ -58,43 +55,25 @@ public class MainApp {
                 },
         };
 
-        BDMatrix A = new BDMatrix(3, 7, testMatrix);
+
+        BDMatrix A = new BDMatrix(3, 3, testMatrix);
         BDMatrix B = new BDMatrix(A.getRows());
 
-        A.printMatrix("ORIGINAL");
-        System.out.println("===============================");
+        A.printMatrix();
+
+        BigDecimal detA = new BDDeterminan(A).hitungDeterminanEK(A, A.getRows()).stripTrailingZeros();
+        System.out.println(detA);
+
+        A.printMatrix();
         A.reducedEchelon();
-        A.printMatrix("REDUCED ECHELON");
+        A.printMatrix("REDUCED ECHELON FORM");
 
-//        int size = A.getColumns();
-//
-//        A.printMatrix("A");
-//        B.printMatrix("B");
-//
-//        Determinan determinator = new Determinan();
-//
+
+//        A.printMatrix("ORIGINAL");
 //        System.out.println("===============================");
-//
-//        System.out.println("===============================");
-//
-//        A.addHorizontal(B);
-//        A.printMatrix();
-//
-//        System.out.println("===============================");
-//
 //        A.reducedEchelon();
-//        A.printMatrix("REDUCED ECHELON MATRIX");
-//
-//        System.out.println("===============================");
-//
-//        A.removeHorizontal(size, 0);
-//        A.printMatrix("INVERSE");
+//        A.printMatrix("REDUCED ECHELON");
 
-        /*
-        SPL balikan = new SPL();
-        balikan.Balikan();
-
-         */
 
     }
 }

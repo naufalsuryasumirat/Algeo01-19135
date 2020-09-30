@@ -307,6 +307,10 @@ public class BDMatrix {
         element = temp;
     }
 
+    public void replaceColumn(BDMatrix column)
+    {
+
+    }
 
     public void orderRows()
     {
@@ -360,6 +364,12 @@ public class BDMatrix {
     public void divideRow(int row, BigDecimal C)
     {
         BigDecimal value = new BigDecimal(0);
+
+        if(C.compareTo(zero) == 0)
+        {
+            return;
+        }
+
         for(int i=0; i < columns; i++)
         {
             value = getElmt(row, i).divide(C, mc);
