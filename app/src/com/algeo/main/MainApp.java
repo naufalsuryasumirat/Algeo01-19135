@@ -19,7 +19,7 @@ public class MainApp {
         BigDecimal[][] testMatrix = {
                 {
                         new BigDecimal(1),
-                        new BigDecimal(0),
+                        new BigDecimal(2),
                         new BigDecimal(1),
                         new BigDecimal(3),
                         new BigDecimal(1),
@@ -27,8 +27,8 @@ public class MainApp {
                         new BigDecimal(2),
                 },
                 {
-                        new BigDecimal(2),
-                        new BigDecimal(1),
+                        new BigDecimal(3),
+                        new BigDecimal(4),
                         new BigDecimal(2),
                         new BigDecimal(5),
                         new BigDecimal(1),
@@ -56,17 +56,34 @@ public class MainApp {
         };
 
 
-        BDMatrix A = new BDMatrix(4, 4, testMatrix);
-        BDMatrix B = new BDMatrix(A.getRows());
+        BigDecimal[][] testMatrix2 = {
+                {
+                    new BigDecimal(5),
+                    new BigDecimal(6),
+                    new BigDecimal(1),
+                    new BigDecimal(3),
+                },
+                {
+                    new BigDecimal(7),
+                    new BigDecimal(8),
+                    new BigDecimal(1),
+                    new BigDecimal(3),
+                }
+        };
 
-        A.printMatrix();
+        BDMatrix A = new BDMatrix(2, 2, testMatrix);
+        BDMatrix B = new BDMatrix(2, 2, testMatrix2);
 
-        BigDecimal detA = new BDDeterminan(A).hitungDeterminanOBE(A).stripTrailingZeros();
-        System.out.println(detA);
+        A.crossProductWith(B).printMatrix();
 
-        A.printMatrix();
-        A.reducedEchelon();
-        A.printMatrix("REDUCED ECHELON FORM");
+//        A.printMatrix();
+//
+//        BigDecimal detA = new BDDeterminan(A).hitungDeterminanOBE(A).stripTrailingZeros();
+//        System.out.println(detA);
+//
+//        A.printMatrix();
+//        A.reducedEchelon();
+//        A.printMatrix("REDUCED ECHELON FORM");
 
 
 //        A.printMatrix("ORIGINAL");
