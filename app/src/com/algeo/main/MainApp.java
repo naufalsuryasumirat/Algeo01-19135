@@ -76,6 +76,12 @@ public class MainApp {
 
         A.crossProductWith(B).printMatrix();
 
+        FileHandler hihi = new FileHandler("test.txt");
+        hihi.readFile();
+
+        BDMatrix C = hihi.getData();
+        C.printMatrix("THIS IS C");
+
 //        A.printMatrix();
 //
 //        BigDecimal detA = new BDDeterminan(A).hitungDeterminanOBE(A).stripTrailingZeros();
