@@ -7,16 +7,14 @@ import java.math.RoundingMode;
 import java.util.Arrays;
 
 public class BDMatrix {
-    // BigDecimal Matrix
 
+    // BigDecimal Matrix
     BigDecimal[][] element;
     int rows;
     int columns;
 
-    private BigDecimal zero = new BigDecimal(0.0);
-
-    private MathContext mc = MathContext.DECIMAL32;
-
+    private BigDecimal zero = BigDecimal.ZERO;
+    public MathContext mc = MathContext.DECIMAL32;
 
     /**
     * CONSTRUCTORS
@@ -113,7 +111,6 @@ public class BDMatrix {
         } else {
             mc = MathContext.DECIMAL32;
         }
-
     }
 
     public BigDecimal getLeadingElmt(int row)
@@ -144,15 +141,23 @@ public class BDMatrix {
     /** MATRIX LOGGING */
     public void printMatrix()
     {
+        System.out.println(convertToString());
+    }
+
+    public String convertToString()
+    {
+        String output = "";
         for(int i= 0; i < rows; i++)
         {
             for(int j=0; j < columns; j++)
             {
-                System.out.print(getElmt(i, j).stripTrailingZeros() + " ");
+                output += getElmt(i, j).stripTrailingZeros() + " ";
             }
 
-            System.out.println();
+            output += "\n";
         }
+
+        return output;
     }
 
     public void printMatrix(String message)
@@ -293,7 +298,6 @@ public class BDMatrix {
             BigDecimal value = getElmt(row1, i).add(getElmt(row2, i), mc);
             setElmt(row1, i, value);
         }
-
     }
 
     public void subtractRows(int row1, int row2)
@@ -308,7 +312,7 @@ public class BDMatrix {
 
     public void multiplyRow(int row, BigDecimal C)
     {
-        BigDecimal value = new BigDecimal(0);
+        BigDecimal value = zero;
         for(int i=0; i < columns; i++)
         {
             value = getElmt(row, i).multiply(C, mc);
@@ -379,5 +383,4 @@ public class BDMatrix {
 
         return 0;
     }
-
 }

@@ -4,6 +4,9 @@ import java.util.Scanner;
 import java.lang.Math;
 
 public class Interpolasi {
+
+
+
     //cek mau keluarannya gaada apa jadi double[][] atau double[]
     public void interpolasi() {
         Scanner scan = new Scanner(System.in);

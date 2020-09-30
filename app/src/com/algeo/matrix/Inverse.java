@@ -2,6 +2,18 @@ package com.algeo.matrix;
 
 public class Inverse {
 
+    BDMatrix data;
+
+    public Inverse()
+    {
+
+    }
+
+    public Inverse(BDMatrix input)
+    {
+        
+    }
+
     public double[][] getInvers(double[][] matrixA){
         // Menggunakan sifat matrix [A|I]=[I|A^-1]
         int i,j,k;
