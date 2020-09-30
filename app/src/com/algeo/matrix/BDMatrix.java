@@ -159,6 +159,14 @@ public class BDMatrix {
         System.out.println(convertToString());
     }
 
+    public void printRow(int row)
+    {
+        for(int i = 0; i < columns; i++)
+        {
+            System.out.print(getRow(row)[i]);
+        }
+    }
+
     public String convertToString()
     {
         String output = "";
@@ -166,7 +174,7 @@ public class BDMatrix {
         {
             for(int j=0; j < columns; j++)
             {
-                output += getElmt(i, j).stripTrailingZeros() + " ";
+                output += getElmt(i, j).stripTrailingZeros().toPlainString() + " ";
             }
             output += "\n";
         }
@@ -307,9 +315,19 @@ public class BDMatrix {
         element = temp;
     }
 
-    public void replaceColumn(BDMatrix column)
+    public BDMatrix transpose()
     {
+        BDMatrix result = new BDMatrix(columns, rows);
 
+        for(int i = 0; i < rows; i++)
+        {
+            for(int j = 0; j < columns; j++)
+            {
+                result.setElmt(i, j, getElmt(j, i));
+            }
+        }
+
+        return result;
     }
 
     public void orderRows()
@@ -327,6 +345,30 @@ public class BDMatrix {
                 }
             }
         }
+    }
+
+    /** MATRIX ARITHMETICS */
+    public BDMatrix crossProductWith(BDMatrix operand)
+    {
+        if(columns != operand.getRows())
+        {
+            return new BDMatrix();
+        }
+
+        int originalColumns = operand.columns;
+
+        operand = operand.transpose();
+        BDMatrix result = new BDMatrix(columns);
+
+        for(int i = 0; i < rows; i++)
+        {
+            for(int j = 0; j < originalColumns; j++)
+            {
+                result.setElmt(i, j, rowCrossSum(getRow(i), operand.getRow(j), columns));
+            }
+        }
+
+        return result;
     }
 
     /** ROW ARITHMETICS */
@@ -429,5 +471,18 @@ public class BDMatrix {
         }
 
         return 0;
+    }
+
+    private BigDecimal rowCrossSum(BigDecimal[] row1, BigDecimal[] row2, int length)
+    {
+        BigDecimal sum = BigDecimal.ZERO;
+
+        for(int i=0; i < length; i++)
+        {
+
+            sum = sum.add(row1[i].multiply(row2[i]));
+        }
+
+        return sum;
     }
 }
