@@ -43,6 +43,12 @@ public class FileHandler {
         return this.data;
     }
 
+    public void setOutputString(String output)
+    {
+        outputString = output;
+    }
+
+
     /**
      * FILE READING AND WRITING
      * */
@@ -95,8 +101,8 @@ public class FileHandler {
 
     public void writeFile(String fileAddress)
     {
-        try {
-            FileWriter fileWriter = new FileWriter(fileAddress);
+        File writeThis = new File(fileAddress);
+        try(FileWriter fileWriter = new FileWriter(writeThis)) {
             fileWriter.write(outputString);
         } catch (IOException error)
         {

@@ -81,6 +81,9 @@ public class MainApp {
 
         BDMatrix C = hihi.getData();
         C.printMatrix("THIS IS C");
+        C.upperTri();
+        hihi.setOutputString(C.convertToString());
+        hihi.writeFile("test.txt");
 
 //        A.printMatrix();
 //
