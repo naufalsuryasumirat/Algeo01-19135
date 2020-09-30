@@ -10,7 +10,7 @@ public class FileHandler {
 
     static int fileSuffix = 0;
     BDMatrix data;
-    String outputString, fileAddress;
+    String outputString, address;
 
     enum Command
     {
@@ -24,14 +24,13 @@ public class FileHandler {
 
     public FileHandler(String fileAddress)
     {
-        this.fileAddress = fileAddress;
-
+        address = fileAddress;
     }
 
     public FileHandler(String fileAddress, String output)
     {
         outputString = output;
-        this.fileAddress = fileAddress;
+        address = fileAddress;
     }
 
     /**
@@ -46,52 +45,32 @@ public class FileHandler {
     /**
      * FILE READING AND WRITING
      * */
+    public void doCommand(Command command)
+    {
+        if (command == Command.READ)
+        {
+            readFile(address);
+        }
 
-    public void readFile()
+        if (command == Command.WRITE)
+        {
+            writeFile(address);
+        }
+    }
+
+    public void readFile(String fileAddress)
     {
         determineSize(fileAddress);
-        try {
-            File dataFile = new File(fileAddress);
-            Scanner inputData = new Scanner(dataFile);
+        Scanner inputData = new Scanner(fileAddress);
 
-            for(int i = 0; i < data.getRows(); i++)
+        for(int i = 0; i < data.getRows(); i++)
+        {
+            for(int j = 0; j < data.getColumns(); j++)
             {
-                for(int j = 0; j < data.getColumns(); j++)
-                {
-                    data.setElmt(i, j, inputData.nextBigDecimal());
-                }
+                data.setElmt(i, j, inputData.nextBigDecimal());
             }
         }
-        catch (IOException error)
-        {
-            System.out.println("Error writing file");
-        }
-
-
     }
-
-    public void readTestFile()
-    {
-        File data = new File(fileAddress);
-
-        try {
-            Scanner inputData = new Scanner(data);
-
-            while (inputData.hasNextLine())
-            {
-                System.out.println(inputData.nextLine());
-            }
-            inputData.close();
-
-        } catch (IOException error)
-        {
-            System.out.println("Error reading file");
-            error.printStackTrace();
-        }
-
-
-    }
-
 
     public void writeFile(String fileAddress)
     {
@@ -111,36 +90,23 @@ public class FileHandler {
 
     private void determineSize(String fileAddress)
     {
-        int rows = 0;
-        int columns = 0;
+        Scanner sizeCounter = new Scanner(fileAddress);
+        int rows, columns;
 
-        File input = new File(fileAddress);
-        try {
-            Scanner inputData = new Scanner(input);
+        rows = 0;
+        columns = 0;
 
-            while(inputData.hasNextLine())
-            {
-                ++rows;
-                inputData.nextLine();
-            }
-            inputData.close();
-
-            Scanner inputDataCol = new Scanner(input);
-            while(inputDataCol.hasNextBigDecimal())
-            {
-                columns++;
-                inputDataCol.nextBigDecimal();
-            }
-
-            columns = columns/rows;
-            inputDataCol.close();
-
-        } catch (IOException error)
+        while(sizeCounter.hasNextLine())
         {
-            System.out.println("Error reading file");
-            error.printStackTrace();
+            rows++;
+            sizeCounter.nextLine();
         }
 
-        data = new BDMatrix(rows);
+        while(sizeCounter.hasNextBigDecimal())
+        {
+            columns++;
+        }
+        sizeCounter.close();
+        data = new BDMatrix(rows, columns);
     }
 }
