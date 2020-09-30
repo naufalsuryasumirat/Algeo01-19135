@@ -120,4 +120,18 @@ public class BDDeterminan {
         //round hingga 5 angka di belakang koma
         return determinan;
     }
+
+    public BigDecimal hitungDeterminanOBE(BDMatrix data)
+    {
+        BigDecimal determinant = new BigDecimal(1);
+        data.upperTri();
+
+        int i = 0;
+        for (i = 0; i < data.rows; i++)
+        {
+            determinant = determinant.multiply(data.getElmt(i, i));
+        }
+
+        return determinant;
+    }
 }

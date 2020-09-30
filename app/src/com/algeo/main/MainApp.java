@@ -21,16 +21,16 @@ public class MainApp {
                         new BigDecimal(1),
                         new BigDecimal(0),
                         new BigDecimal(1),
-                        new BigDecimal(0),
+                        new BigDecimal(3),
                         new BigDecimal(1),
                         new BigDecimal(0),
                         new BigDecimal(2),
                 },
                 {
-                        new BigDecimal(0),
-                        new BigDecimal(0),
-                        new BigDecimal(0),
+                        new BigDecimal(2),
                         new BigDecimal(1),
+                        new BigDecimal(2),
+                        new BigDecimal(5),
                         new BigDecimal(1),
                         new BigDecimal(0),
                         new BigDecimal(-1),
@@ -39,15 +39,15 @@ public class MainApp {
                         new BigDecimal(3),
                         new BigDecimal(4),
                         new BigDecimal(4),
-                        new BigDecimal(0),
+                        new BigDecimal(5),
                         new BigDecimal(0),
                         new BigDecimal(1),
                         new BigDecimal(1),
                 },
                 {
-                        new BigDecimal(1),
-                        new BigDecimal(0),
-                        new BigDecimal(1),
+                        new BigDecimal(6),
+                        new BigDecimal(7),
+                        new BigDecimal(4),
                         new BigDecimal(3),
                         new BigDecimal(3),
                         new BigDecimal(3),
@@ -56,12 +56,12 @@ public class MainApp {
         };
 
 
-        BDMatrix A = new BDMatrix(3, 3, testMatrix);
+        BDMatrix A = new BDMatrix(4, 4, testMatrix);
         BDMatrix B = new BDMatrix(A.getRows());
 
         A.printMatrix();
 
-        BigDecimal detA = new BDDeterminan(A).hitungDeterminanEK(A, A.getRows()).stripTrailingZeros();
+        BigDecimal detA = new BDDeterminan(A).hitungDeterminanOBE(A).stripTrailingZeros();
         System.out.println(detA);
 
         A.printMatrix();
