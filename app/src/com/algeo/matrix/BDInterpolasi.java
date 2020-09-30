@@ -1,5 +1,6 @@
 package com.algeo.matrix;
 
+import java.lang.reflect.Array;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.util.Scanner;
@@ -9,7 +10,19 @@ public class BDInterpolasi {
     //attribute ArrayHasil
     BDMatrix ArrayHasil;
     String Persamaan;
+    BDMatrix ArrayTitik;
+    BigDecimal titikX;
+    BigDecimal titikInterpolasi;
+    int derajat;
+    MathContext dc = MathContext.DECIMAL128;
 
+    public BDInterpolasi() {
+
+    }
+    public BDInterpolasi(BDMatrix Titik) {
+        ArrayTitik = Titik;
+        derajat = Titik.getRows();
+    }
     public BDMatrix HasilInterpolasi(BDMatrix Matriks) {
         int ukuran = Matriks.getRows();
         BDMatrix Hasil = new BDMatrix(ukuran, 1);
@@ -21,8 +34,20 @@ public class BDInterpolasi {
     private void setArrayHasil(BDMatrix Hasil) {
         ArrayHasil = Hasil;
     }
-    public BDMatrix getArrayHasil(){
+    public String getPersamaan() {
+        return Persamaan;
+    }
+    public BDMatrix getArrayHasil() {
         return ArrayHasil;
+    }
+    public BigDecimal getTitikInterpolasi() {
+        Scanner scan = new Scanner(System.in);
+        titikX = scan.nextBigDecimal();
+        titikInterpolasi = BigDecimal.ZERO;
+        for (int i = 0; i < ArrayHasil.getRows(); i++) {
+            titikInterpolasi = titikInterpolasi.add(ArrayHasil.getElmt(i, 0).multiply(titikX.pow(i)));
+        }
+        return titikInterpolasi;
     }
     public String convertingToString(BDMatrix hasilInterpolasi) {
         int ukuran = hasilInterpolasi.getRows();
@@ -33,19 +58,16 @@ public class BDInterpolasi {
                 output += ("P" + n + "(x) = ");
             }
             if (hasilInterpolasi.getElmt(i, 0).compareTo(BigDecimal.ZERO) == 1) {
-                output += ("" + hasilInterpolasi.getElmt(i, 0));
+                output += ("" + hasilInterpolasi.getElmt(i, 0).stripTrailingZeros().toPlainString());
             }
             else {
-                output += ("(" + hasilInterpolasi.getElmt(i, 0) + ")");
+                output += ("(" + hasilInterpolasi.getElmt(i, 0).stripTrailingZeros().toPlainString() + ")");
             }
             if (i != 0) {
                 output += ("x^" + i);
             }
             if (i != (ukuran - 1)) {
                 output += (" + ");
-            }
-            if (i == (ukuran - 1)) {
-                output += ("%n");
             }
         }
         return output;
@@ -147,19 +169,16 @@ public class BDInterpolasi {
         System.out.println(y);*/
     }
     public void interpolate() {
-        Scanner scan = new Scanner(System.in);
-        int n = scan.nextInt();
-        BDMatrix MatriksTitik = makeMatriksTitik(n);
-        int ukuran = MatriksTitik.getRows();
+        int ukuran = ArrayTitik.getRows();
         int kolomInterpolasi = (ukuran + 1);
         BDMatrix MatriksInterpolasi = new BDMatrix(ukuran, kolomInterpolasi);
         for (int i = 0; i < ukuran; i++) {
-            MatriksInterpolasi.setElmt(i, kolomInterpolasi - 1, MatriksTitik.getElmt(i, 1));
+            MatriksInterpolasi.setElmt(i, kolomInterpolasi - 1, ArrayTitik.getElmt(i, 1));
             MatriksInterpolasi.setElmt(i, 0, BigDecimal.ONE);
         }
         for (int i = 0; i < ukuran; i++) {
             //elemen x pada matriks titik yang telah dibuat
-            BigDecimal toBePow = MatriksTitik.getElmt(i, 0);
+            BigDecimal toBePow = ArrayTitik.getElmt(i, 0);
             for (int j = 1; j < ukuran; j++) {
                 MatriksInterpolasi.setElmt(i, j, toBePow.pow(j));
             }
@@ -167,12 +186,18 @@ public class BDInterpolasi {
         MatriksInterpolasi.reducedEchelon();
         setArrayHasil(HasilInterpolasi(MatriksInterpolasi));
         String OUT = convertingToString(ArrayHasil);
-        System.out.println(OUT);//check
         Persamaan = OUT;
     }
     public BDMatrix makeMatriksTitik(int n) {
         BDMatrix matriksTitik = new BDMatrix(n + 1, 2);
         matriksTitik.readUserMatrix();
         return matriksTitik;
+    }
+    public void readData() {
+        Scanner scan = new Scanner(System.in);
+        int n = scan.nextInt();
+        BDMatrix matrixTitik = makeMatriksTitik(n);
+        ArrayTitik = matrixTitik;
+        derajat = n;
     }
 }
