@@ -29,6 +29,11 @@ public class FileHandler {
         {
             readFile(fileAddress);
         }
+
+        if(command == Command.WRITE)
+        {
+            writeFile(fileAddress);
+        }
     }
 
     /**

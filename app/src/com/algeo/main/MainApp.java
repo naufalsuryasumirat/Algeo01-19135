@@ -26,29 +26,24 @@ public class MainApp {
                         new BigDecimal(1),
                         new BigDecimal(3)
                 },
-
                 {
                         new BigDecimal(2),
                         new BigDecimal(1),
                         new BigDecimal(2),
                         new BigDecimal(5)
-
                 },
-
                 {
                         new BigDecimal(3),
                         new BigDecimal(4),
                         new BigDecimal(4),
                         new BigDecimal(5)
                 },
-
                 {
                         new BigDecimal(6),
                         new BigDecimal(7),
                         new BigDecimal(4),
                         new BigDecimal(3)
                 },
-
         };
 
         BDMatrix A = new BDMatrix(3, 4, testMatrix);
@@ -63,24 +58,10 @@ public class MainApp {
 
         System.out.println("===============================");
 
-//        System.out.println("DETERMINANT");
-//        BigDecimal det =  determinator.hitungDeterminanOBE(A);
-//        System.out.println(det);
-
         System.out.println("===============================");
 
         A.addHorizontal(B);
         A.printMatrix();
-
-//        System.out.println("===============================");
-
-//        A.upperTri();
-//        A.printMatrix("UPPER TRI");
-//
-//        System.out.println("===============================");
-//
-//        A.echelon();
-//        A.printMatrix("ECHELON MATRIX");
 
         System.out.println("===============================");
 
