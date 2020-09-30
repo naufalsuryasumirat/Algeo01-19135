@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
 import java.util.Arrays;
+import java.util.Scanner;
 
 public class BDMatrix {
 
@@ -138,6 +139,19 @@ public class BDMatrix {
     * PUBLIC METHODS
     * */
 
+    /** USER INPUT */
+    public void readUserMatrix()
+    {
+        Scanner inputData = new Scanner(System.in);
+        for(int i = 0; i < rows; i++)
+        {
+            for(int j = 0; j < columns; j++)
+            {
+                setElmt(i, j, inputData.nextBigDecimal());
+            }
+        }
+    }
+
     /** MATRIX LOGGING */
     public void printMatrix()
     {
@@ -153,10 +167,8 @@ public class BDMatrix {
             {
                 output += getElmt(i, j).stripTrailingZeros() + " ";
             }
-
             output += "\n";
         }
-
         return output;
     }
 

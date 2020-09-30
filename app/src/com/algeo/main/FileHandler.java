@@ -10,30 +10,27 @@ public class FileHandler {
 
     static int fileSuffix = 0;
     BDMatrix data;
-    Command com = Command.NONE;
+    String outputString, address;
 
     enum Command
     {
         READ,
-        WRITE,
-        NONE
+        WRITE
     }
 
     /**
      * CONSTRUCTORS
      * */
 
-    public FileHandler(String fileAddress, Command command)
+    public FileHandler(String fileAddress)
     {
-        if(command == Command.READ)
-        {
-            readFile(fileAddress);
-        }
+        address = fileAddress;
+    }
 
-        if(command == Command.WRITE)
-        {
-            writeFile(fileAddress);
-        }
+    public FileHandler(String fileAddress, String output)
+    {
+        outputString = output;
+        address = fileAddress;
     }
 
     /**
@@ -48,6 +45,19 @@ public class FileHandler {
     /**
      * FILE READING AND WRITING
      * */
+    public void doCommand(Command command)
+    {
+        if (command == Command.READ)
+        {
+            readFile(address);
+        }
+
+        if (command == Command.WRITE)
+        {
+            writeFile(address);
+        }
+    }
+
     public void readFile(String fileAddress)
     {
         determineSize(fileAddress);
@@ -66,7 +76,7 @@ public class FileHandler {
     {
         try {
             FileWriter fileWriter = new FileWriter(fileAddress);
-            fileWriter.write(data.convertToString());
+            fileWriter.write(outputString);
         } catch (IOException error)
         {
             System.out.println("Error writing file");
@@ -86,14 +96,15 @@ public class FileHandler {
         rows = 0;
         columns = 0;
 
-        while(sizeCounter.hasNextBigDecimal())
-        {
-            columns++;
-        }
-
         while(sizeCounter.hasNextLine())
         {
             rows++;
+            sizeCounter.nextLine();
+        }
+
+        while(sizeCounter.hasNextBigDecimal())
+        {
+            columns++;
         }
         sizeCounter.close();
         data = new BDMatrix(rows, columns);
