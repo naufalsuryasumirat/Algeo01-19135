@@ -201,6 +201,7 @@ public class BDMatrix {
     public String convertToString()
     {
         String output = "";
+        setMathContext(1);
         for(int i= 0; i < rows; i++)
         {
             for(int j=0; j < columns; j++)
@@ -221,6 +222,7 @@ public class BDMatrix {
     /** MATRIX MANIPULATION */
     public void upperTri()
     {
+        printMatrix("STARTING UPPERTRI");
         orderRows();
         BigDecimal ratio = new BigDecimal(0);
 
@@ -242,13 +244,12 @@ public class BDMatrix {
 //                System.out.println("Testing row " + i + " Column " + j);
 
                 int sRow = getLeadingIndex(j);
-
                 ratio = getLeadingElmt(i).divide(getLeadingElmt(sRow), mc);
 
                 multiplyRow(sRow, ratio);
                 subtractRows(i, sRow);
-
                 divideRow(sRow, ratio);
+                printMatrix("HAS BEEN DIVIDED BY" + ratio + "WITH TARGET ROW" + j);
 
                 j = getLeadingIndex(i);
             }
@@ -264,6 +265,7 @@ public class BDMatrix {
     {
         upperTri();
 
+        printMatrix("STARTING ECHELON");
         for(int i = 0; i < rows; i++)
         {
             divideRow(i, getLeadingElmt(i));
@@ -272,6 +274,8 @@ public class BDMatrix {
 
     public void reducedEchelon() {
         echelon();
+
+        printMatrix("STARTING");
 
         for (int i = rows - 1; i >= 0; i--) {
             int leader = getLeadingIndex(i);
@@ -288,6 +292,8 @@ public class BDMatrix {
             }
         }
 
+        printMatrix("PASSED STEP 1");
+
         // REMOVING DUPLICATE LEADING ONES FROM TOP
         int row = 0;
         while (row < rows - 1) {
@@ -300,6 +306,8 @@ public class BDMatrix {
                 row++;
             }
         }
+
+        printMatrix("PASSED STEP 2");
 
         // REMOVING DUPLICATE LEADING ONES FROM BOTTOM
         row = rows-1;
@@ -449,6 +457,12 @@ public class BDMatrix {
         for(int i=0; i < columns; i++)
         {
             BigDecimal value = getElmt(row1, i).subtract(getElmt(row2, i), mc);
+
+            if (value.abs().compareTo(new BigDecimal("1E-32")) == -1)
+            {
+                value = zero;
+            }
+
             setElmt(row1, i, value);
         }
 
