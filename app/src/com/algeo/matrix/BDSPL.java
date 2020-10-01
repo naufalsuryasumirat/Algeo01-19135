@@ -18,6 +18,74 @@ public class BDSPL {
     public void hitungGauss()
     {
         data.echelon();
+        int i,j,k;
+        int solCount = 0;
+
+        if (data.columns-1-data.rows>0) { // inisialisasi nilai
+            BigDecimal[][] matrixPeubahVal = new BigDecimal[data.rows][data.rows];
+            for (i = 0; i < data.columns - 1 - data.rows; ++i) {
+                for (j = 0; i < data.columns - 1; ++j) {
+                    matrixPeubahVal[i][j] = BigDecimal.valueOf(0);
+                }
+            }
+            for (i = data.rows-1; i>0; --i) {
+                if (i == data.rows-1){
+                    for (j = data.rows; j < data.columns - 1; ++j) {
+                        matrixPeubahVal[i][j-data.rows] = data.element[i][j];
+                    }
+                }
+                else {
+                    for (j = i+1; j < data.rows; ++j) {
+                        for (k = 0; k < data.rows; ++k)
+                            matrixPeubahVal[k][i] += data.element[i][j] * matrixPeubahVal[k][i-1];
+
+                    }
+                }
+            }
+        }
+
+
+
+        /*
+        for(i=data.getColumns()-2 ; i>=0 ; --i){
+            if (i > data.rows){
+                String value = "";
+                value += "x" + (i + 1) + " = x"+(i+1);
+                solution[solCount] = value;
+                solCount++;
+            }
+            else {
+                String value = "";
+                value += "x" + (i + 1);
+                value += " = ";
+                if (data.element[i][data.columns-1].compareTo(BigDecimal.ZERO)!=0) {
+                    value += data.element[i][data.columns - 1];
+                }
+                for (j = data.rows; j < data.columns - 1; j++) {
+                    if (data.element[i][j].compareTo(BigDecimal.ZERO) != 0 && !value.equals("x" + (i + 1) + " = ")) {
+                        v
+
+
+                        /*
+                        if (data.element[i][j].compareTo(BigDecimal.ZERO) > 0) {
+                            matrix
+                            value += " - " + data.element[i][j] + "x" + (j + 1);
+                        } else if (data.element[i][j].compareTo(BigDecimal.ZERO) < 0) {
+                            value += " + " + (-1 * data.element[i][j].doubleValue()) + "x" + (j + 1);
+                        }
+
+                    }
+                    else if (data.element[i][j].compareTo(BigDecimal.ZERO) != 0 && value.equals("x" + (i + 1) + " = ")){
+                        if (data.element[i][j].compareTo(BigDecimal.ZERO) > 0) {
+                            value += "-" + data.element[i][j] + "x" + (j + 1);
+                        } else if (data.element[i][j].compareTo(BigDecimal.ZERO) < 0) {
+                            value += (-1 * data.element[i][j].doubleValue()) + "x" + (j + 1);
+                        }
+
+                    }
+            }
+        }*/
+
 
     }
 
