@@ -193,15 +193,11 @@ public class BDInterpolasi {
         for (int i = 0; i < ukuran; i++) {
             //elemen x pada matriks titik yang telah dibuat
             BigDecimal toBePow = ArrayTitik.getElmt(i, 0);
-            MatriksInterpolasi.printMatrix("BEFORE POW");
             for (int j = 1; j < ukuran; j++) {
                 MatriksInterpolasi.setElmt(i, j, toBePow.pow(j));
-                MatriksInterpolasi.printMatrix("AFTER POW" + i + j);
             }
         }
-        MatriksInterpolasi.printMatrix("BEFORE REDUCTION");
         MatriksInterpolasi.reducedEchelon();
-        MatriksInterpolasi.printMatrix("AFTER REDUCTION");
         setArrayHasil(HasilInterpolasi(MatriksInterpolasi));
         String OUT = convertingToString(ArrayHasil);
         Persamaan = OUT;

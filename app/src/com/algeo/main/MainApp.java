@@ -93,14 +93,15 @@ public class MainApp {
 
         };
 
-        BDMatrix interpolateThis = new BDMatrix(7, 2, testMatrix2);
+        BDMatrix interpolateThis = new BDMatrix(7, 2, testMatrix);
         BDMatrix B = new BDMatrix(2, 2, testMatrix2);
-        BDMatrix C = new BDMatrix();
-        C.makeMatrix();
-        C.printMatrix();
-        C.readUserMatrix();
-        BDSPL spl = new BDSPL(C);
-        spl.hitungGaussJordan();
+//        C.makeMatrix();
+//        C.printMatrix();
+//        C.readUserMatrix();
+//        BDSPL spl = new BDSPL(C);
+//        spl.hitungGaussJordan();
+
+
         /*
         A.crossProductWith(B).printMatrix();
 
@@ -123,12 +124,12 @@ public class MainApp {
 //        A.printMatrix();
 //        A.reducedEchelon();
 //        A.printMatrix("REDUCED ECHELON FORM");
-
-        BDInterpolasi interpolator = new BDInterpolasi(interpolateThis);
-        interpolator.interpolate();
-
-        System.out.println(interpolator.getPersamaan());
-        System.out.println(interpolator.getTitikInterpolasi());
+//
+//        BDInterpolasi interpolator = new BDInterpolasi(interpolateThis);
+//        interpolator.interpolate();
+//
+//        System.out.println(interpolator.getPersamaan());
+//        System.out.println(interpolator.getTitikInterpolasi());
 
 //        BDMatrix C = new BDMatrix(5, 6);
 //        System.out.println("INPUT SHIT");
@@ -136,5 +137,39 @@ public class MainApp {
 //        C.printMatrix("THIS IS THE USER INPUT");
 //        C.reducedEchelon();
 
+        BigDecimal[][] regTester = {
+                {
+                        new BigDecimal(1),
+                        new BigDecimal(15),
+                        new BigDecimal(1)
+                },
+                {
+                        new BigDecimal(2),
+                        new BigDecimal(1),
+                        new BigDecimal(2)
+                },
+                {
+                        new BigDecimal(3),
+                        new BigDecimal(4),
+                        new BigDecimal(4)
+                }
+        };
+
+        FileHandler hihi = new FileHandler("test.txt");
+        hihi.readFile();
+
+        BDMatrix C = hihi.getData();
+        C.printMatrix("THIS IS C");
+
+        C.reducedEchelon();
+
+        C.printMatrix("THIS IS C REDUCED");
+
+//        hihi.setOutputString(C.convertToString());
+//        hihi.writeFile("test.txt");
+
+//        BDMatrix testThisPls = new BDMatrix(3, 3, regTester);
+//        testThisPls.echelon();
+//        testThisPls.printMatrix("REDUCEDs");
     }
 }

@@ -41,6 +41,18 @@ public class BDMatrix {
         }
     }
 
+    public BDMatrix(int row, int column, BigDecimal initialValue)
+    {
+        this.rows = row;
+        this.columns = column;
+        this.element = new BigDecimal[row][column];
+
+        for(BigDecimal[] re: this.element)
+        {
+            Arrays.fill(re, initialValue);
+        }
+    }
+
     public BDMatrix(int row, int column, BigDecimal[][] data)
     {
         this.rows = row;
@@ -201,7 +213,6 @@ public class BDMatrix {
     public String convertToString()
     {
         String output = "";
-        setMathContext(1);
         for(int i= 0; i < rows; i++)
         {
             for(int j=0; j < columns; j++)
@@ -222,7 +233,6 @@ public class BDMatrix {
     /** MATRIX MANIPULATION */
     public void upperTri()
     {
-        printMatrix("STARTING UPPERTRI");
         orderRows();
         BigDecimal ratio = new BigDecimal(0);
 
@@ -241,7 +251,6 @@ public class BDMatrix {
             int j = getLeadingIndex(i);
             while (j < i)
             {
-//                System.out.println("Testing row " + i + " Column " + j);
 
                 int sRow = getLeadingIndex(j);
                 ratio = getLeadingElmt(i).divide(getLeadingElmt(sRow), mc);
@@ -249,7 +258,6 @@ public class BDMatrix {
                 multiplyRow(sRow, ratio);
                 subtractRows(i, sRow);
                 divideRow(sRow, ratio);
-                printMatrix("HAS BEEN DIVIDED BY" + ratio + "WITH TARGET ROW" + j);
 
                 j = getLeadingIndex(i);
             }
@@ -264,8 +272,6 @@ public class BDMatrix {
     public void echelon()
     {
         upperTri();
-
-        printMatrix("STARTING ECHELON");
         for(int i = 0; i < rows; i++)
         {
             divideRow(i, getLeadingElmt(i));
@@ -274,8 +280,6 @@ public class BDMatrix {
 
     public void reducedEchelon() {
         echelon();
-
-        printMatrix("STARTING");
 
         for (int i = rows - 1; i >= 0; i--) {
             int leader = getLeadingIndex(i);
@@ -286,13 +290,9 @@ public class BDMatrix {
                     multiplyRow(i, target);
                     subtractRows(j, i);
                     divideRow(i, target);
-
-                    //                    printMatrix("REDUCED " + j + " by " + i);
                 }
             }
         }
-
-        printMatrix("PASSED STEP 1");
 
         // REMOVING DUPLICATE LEADING ONES FROM TOP
         int row = 0;
@@ -306,8 +306,6 @@ public class BDMatrix {
                 row++;
             }
         }
-
-        printMatrix("PASSED STEP 2");
 
         // REMOVING DUPLICATE LEADING ONES FROM BOTTOM
         row = rows-1;
@@ -327,6 +325,7 @@ public class BDMatrix {
     }
 
     /** MATRIX MODIFIERS */
+    // THIS ADDS A COLUMN TO THE RIGHT
     public void addHorizontal(BDMatrix newData)
     {
         BigDecimal[][] temp = new BigDecimal[rows][columns + newData.columns];
@@ -338,9 +337,11 @@ public class BDMatrix {
         }
 
         columns += newData.columns;
+        columns += newData.columns;
         element = temp;
     }
 
+    // ACTUALLY THIS REMOVES COLUMNS
     public void removeHorizontal(int left, int right)
     {
         BigDecimal[][] temp = new BigDecimal[rows][columns - left - right];

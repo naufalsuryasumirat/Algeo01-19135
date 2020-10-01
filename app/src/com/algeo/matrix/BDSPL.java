@@ -7,6 +7,7 @@ public class BDSPL {
     BDMatrix original;
     BDMatrix data;
     String[] solution;
+    BDMatrix solutionMatrix;
 
     public BDSPL(BDMatrix input)
     {
@@ -28,21 +29,20 @@ public class BDSPL {
                     matrixPeubahVal[i][j] = BigDecimal.valueOf(0);
                 }
             }
-            for (i = data.rows-1; i>0; --i) {
-                if (i == data.rows-1){
+            for (i = data.rows - 1; i > 0; --i) {
+                if (i == data.rows - 1) {
                     for (j = data.rows; j < data.columns - 1; ++j) {
-                        matrixPeubahVal[i][j-data.rows] = data.element[i][j];
+                        matrixPeubahVal[i][j - data.rows] = data.element[i][j];
                     }
-                }
-                else {
-                    for (j = i+1; j < data.rows; ++j) {
-                        for (k = 0; k < data.rows; ++k)
-                            matrixPeubahVal[k][i] += data.element[i][j] * matrixPeubahVal[k][i-1];
+                } else {
+                    for (j = i + 1; j < data.rows; ++j) {
+                        for (k = 0; k < data.rows; ++k) {
+//                            matrixPeubahVal[k][i] += data.element[i][j] * matrixPeubahVal[k][i-1];
 
+                        }
                     }
                 }
             }
-        }
 
 
 
@@ -85,8 +85,7 @@ public class BDSPL {
                     }
             }
         }*/
-
-
+        }
     }
 
     public void hitungGaussJordan()
@@ -113,7 +112,6 @@ public class BDSPL {
                         } else if (data.element[i][j].compareTo(BigDecimal.ZERO) < 0) {
                             value += " + " + (-1 * data.element[i][j].doubleValue()) + "x" + (j + 1);
                         }
-
                     }
                     else if (data.element[i][j].compareTo(BigDecimal.ZERO) != 0 && value.equals("x" + (i + 1) + " = ")){
                         if (data.element[i][j].compareTo(BigDecimal.ZERO) > 0) {
@@ -214,6 +212,13 @@ public class BDSPL {
 
     private void calcSPL()
     {
+        // Strip rows of their leading ones
+        for(int i = 0; i < solutionMatrix.rows; i++)
+        {
+            solutionMatrix.setElmt(i, solutionMatrix.getLeadingIndex(i), BigDecimal.ZERO);
+        }
+
+
 
     }
 
