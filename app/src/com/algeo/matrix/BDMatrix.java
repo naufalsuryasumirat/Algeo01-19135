@@ -205,6 +205,27 @@ public class BDMatrix {
         }
     }
 
+    public boolean adaSolusi() {
+        int i,j,k;
+        boolean isSolusiAda;
+        isSolusiAda = true;
+        for (i=0; i<this.getRows(); ++i){
+            if (this.getLeadingIndex(i)==this.getColumns()-1 && this.getLeadingElmt(i).compareTo(BigDecimal.ZERO)!=0){
+                return !isSolusiAda;
+            }
+        }
+        return isSolusiAda;
+    }
+
+    public boolean kolomkosong(int idxcol){
+        for (int i=0;i<rows;++i){
+            if (this.getElmt(i,idxcol).compareTo(BigDecimal.ZERO)!=0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     /** MATRIX LOGGING */
     public void printMatrix()
     {
