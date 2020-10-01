@@ -73,6 +73,14 @@ public class MainApp {
 
         BDMatrix A = new BDMatrix(2, 2, testMatrix);
         BDMatrix B = new BDMatrix(2, 2, testMatrix2);
+        BDMatrix C = new BDMatrix();
+        C.makeMatrix();
+        C.printMatrix();
+        C.readUserMatrix();
+        BDSPL spl = new BDSPL(C);
+        spl.hitungGaussJordan();
+        /*
+
 
         A.crossProductWith(B).printMatrix();
 
@@ -84,6 +92,8 @@ public class MainApp {
         C.upperTri();
         hihi.setOutputString(C.convertToString());
         hihi.writeFile("test.txt");
+        */
+
 
 //        A.printMatrix();
 //
