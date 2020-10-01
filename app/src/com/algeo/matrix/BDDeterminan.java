@@ -1,40 +1,31 @@
 package com.algeo.matrix;
 import java.math.BigDecimal;
 import java.math.MathContext;
+import java.util.Scanner;
 
 public class BDDeterminan {
     BigDecimal attributeDeterminan;
     BDMatrix attributeMatriks;
+    int N;
 
-    public enum Metode {
-        EK,
-        OBE,
-        NOTSET
+    //read user input
+    public void readData() {
+        Scanner scan = new Scanner(System.in);
+        N = scan.nextInt();
+        BDMatrix toBeattributeMatriks = new BDMatrix(N, N);
+        toBeattributeMatriks.readUserMatrix();
+        attributeMatriks = toBeattributeMatriks;
     }
 
-    Metode metode;
-
-    public BDDeterminan(BDMatrix MatriksDeterminan, Metode metode) {
-        attributeMatriks = MatriksDeterminan;
-        if (metode == Metode.EK) {
-            setDeterminan(hitungDeterminanEK(attributeMatriks, attributeMatriks.getRows()));
-        }
-        else if (metode == Metode.OBE) {
-            setDeterminan(hitungDeterminanOBE(attributeMatriks, attributeMatriks.getRows()));
-        }
-    }
-
-    public BDDeterminan(BDMatrix MatriksDeterminan) {
-        attributeMatriks = MatriksDeterminan;
-        Metode metode = Metode.NOTSET;
-    }
-
-    public BigDecimal getDeterminan() {
+    //dari user input terlebih dahulu
+    public BigDecimal getAttributeDeterminanEK() {
+        attributeDeterminan = hitungDeterminanEK(attributeMatriks, N);
         return attributeDeterminan;
     }
-
-    private void setDeterminan(BigDecimal det) {
-        attributeDeterminan = det;
+    //dari user input terlebih dahulu
+    public BigDecimal getAttributeDeterminanOBE() {
+        attributeDeterminan = hitungDeterminanOBE(attributeMatriks);
+        return attributeDeterminan;
     }
 
     public BigDecimal hitungDeterminanEK(BDMatrix Matriks, int ukuran) {
