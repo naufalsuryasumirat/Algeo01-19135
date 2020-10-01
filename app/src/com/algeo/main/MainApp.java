@@ -155,20 +155,30 @@ public class MainApp {
                 }
         };
 
-        FileHandler hihi = new FileHandler("test.txt");
+        FileHandler hihi = new FileHandler("reglin.txt");
         hihi.readFile();
 
         BDMatrix C = hihi.getData();
         C.printMatrix("THIS IS C");
+
+//        FileHandler huhi = new FileHandler("test2.txt");
+//        huhi.readFile();
+//
+//        BDMatrix D = huhi.getData();
+//        D.printMatrix("THIS IS D");
+//
+//        C.crossProductWith(D).printMatrix("THIS IS THE CROSS PRODUCT");
+
+        BDRegresiLinier reglin = new BDRegresiLinier(C);
 //
 //        C.reducedEchelon();
 //
 //        C.printMatrix("THIS IS C REDUCED");
 
-        BDSPL newHandler = new BDSPL(C);
-        newHandler.hitungGaussJordan();
+//        BDSPL newHandler = new BDSPL(C);
+//        newHandler.hitungGaussJordan();
 
-        C.printMatrix("THIS IS C REDUCED");
+//        C.printMatrix("THIS IS C REDUCED");
 
 //        hihi.setOutputString(C.convertToString());
 //        hihi.writeFile("test.txt");

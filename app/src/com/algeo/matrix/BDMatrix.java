@@ -82,6 +82,15 @@ public class BDMatrix {
         }
     }
 
+    public BDMatrix(BDMatrix copyFrom)
+    {
+        this.rows = copyFrom.getRows();
+        this.columns = copyFrom.getColumns();
+        this.element = copyFrom.element;
+    }
+
+
+
 
     /**
     * GETTERS AND SETTERS
@@ -338,7 +347,6 @@ public class BDMatrix {
         }
 
         columns += newData.columns;
-        columns += newData.columns;
         element = temp;
     }
 
@@ -371,7 +379,7 @@ public class BDMatrix {
         {
             for(int j = 0; j < columns; j++)
             {
-                result.setElmt(i, j, getElmt(j, i));
+                result.setElmt(j, i, getElmt(i, j));
             }
         }
 
@@ -406,7 +414,7 @@ public class BDMatrix {
         int originalColumns = operand.columns;
 
         operand = operand.transpose();
-        BDMatrix result = new BDMatrix(columns);
+        BDMatrix result = new BDMatrix(rows, originalColumns);
 
         for(int i = 0; i < rows; i++)
         {

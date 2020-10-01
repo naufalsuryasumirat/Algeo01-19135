@@ -144,6 +144,7 @@ public class BDSPL {
         //}
     }
 
+    /*
     public void hitungKramer() {
         int i, j, k, l;
         BDMatrix matrixA = new BDMatrix(data.rows, data.rows);
@@ -180,6 +181,8 @@ public class BDSPL {
             System.out.println(solution[i]);
         }
     }
+    *
+     */
 
     public void hitungInvers()
     {
@@ -217,9 +220,5 @@ public class BDSPL {
         {
             solutionMatrix.setElmt(i, solutionMatrix.getLeadingIndex(i), BigDecimal.ZERO);
         }
-
-
-
     }
-
 }
