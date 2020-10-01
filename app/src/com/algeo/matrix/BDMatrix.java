@@ -41,6 +41,18 @@ public class BDMatrix {
         }
     }
 
+    public BDMatrix(int row, int column, BigDecimal initialValue)
+    {
+        this.rows = row;
+        this.columns = column;
+        this.element = new BigDecimal[row][column];
+
+        for(BigDecimal[] re: this.element)
+        {
+            Arrays.fill(re, initialValue);
+        }
+    }
+
     public BDMatrix(int row, int column, BigDecimal[][] data)
     {
         this.rows = row;
@@ -152,6 +164,37 @@ public class BDMatrix {
             }
         }
     }
+    public void makeMatrix() { // FOR TESTING ONLY
+        /** ALGORITMA **/
+        Scanner scan = new Scanner(System.in);
+        this.rows = scan.nextInt();
+        this.columns = scan.nextInt();
+        this.element = new BigDecimal[this.rows][this.columns];
+
+        for (int i = 0; i < rows; i++)
+        {
+            for (int j = 0; j < columns; j++)
+            {
+                if (i != j)
+                {
+                    this.element[i][j] = zero;
+                } else {
+                    this.element[i][j] = BigDecimal.ONE;
+                }
+            }
+        }
+    }
+    public void bacaMatrix() { // FOR TESTING ONLY
+        /** KAMUS LOKAL **/
+        int i, j;
+        /** ALGORITMA **/
+        Scanner scan1 = new Scanner(System.in);
+        for (i = 0; i < this.rows; ++i) {
+            for (j = 0; j < this.columns; ++j) {
+                this.element[i][j] = scan1.nextBigDecimal();
+            }
+        }
+    }
 
     /** MATRIX LOGGING */
     public void printMatrix()
@@ -208,15 +251,12 @@ public class BDMatrix {
             int j = getLeadingIndex(i);
             while (j < i)
             {
-//                System.out.println("Testing row " + i + " Column " + j);
 
                 int sRow = getLeadingIndex(j);
-
                 ratio = getLeadingElmt(i).divide(getLeadingElmt(sRow), mc);
 
                 multiplyRow(sRow, ratio);
                 subtractRows(i, sRow);
-
                 divideRow(sRow, ratio);
 
                 j = getLeadingIndex(i);
@@ -232,7 +272,6 @@ public class BDMatrix {
     public void echelon()
     {
         upperTri();
-
         for(int i = 0; i < rows; i++)
         {
             divideRow(i, getLeadingElmt(i));
@@ -251,8 +290,6 @@ public class BDMatrix {
                     multiplyRow(i, target);
                     subtractRows(j, i);
                     divideRow(i, target);
-
-                    //                    printMatrix("REDUCED " + j + " by " + i);
                 }
             }
         }
@@ -288,6 +325,7 @@ public class BDMatrix {
     }
 
     /** MATRIX MODIFIERS */
+    // THIS ADDS A COLUMN TO THE RIGHT
     public void addHorizontal(BDMatrix newData)
     {
         BigDecimal[][] temp = new BigDecimal[rows][columns + newData.columns];
@@ -299,9 +337,11 @@ public class BDMatrix {
         }
 
         columns += newData.columns;
+        columns += newData.columns;
         element = temp;
     }
 
+    // ACTUALLY THIS REMOVES COLUMNS
     public void removeHorizontal(int left, int right)
     {
         BigDecimal[][] temp = new BigDecimal[rows][columns - left - right];
@@ -313,6 +353,13 @@ public class BDMatrix {
 
         columns = columns - left - right;
         element = temp;
+    }
+
+    public void replaceColumn (BDMatrix mtrx, int columns) {
+        int i,j,k;
+        for (i=0; i<this.rows; ++i){
+            this.element[i][columns] = mtrx.element[i][0];
+        }
     }
 
     public BDMatrix transpose()
@@ -383,11 +430,40 @@ public class BDMatrix {
         }
     }
 
+    public BigDecimal[][] dotMatrix(BDMatrix operand) {
+        // Matrix M (this.element) dikali matrix 'matrix'
+        int i, j, k;
+        BigDecimal[][] MH = new BigDecimal[this.rows][operand.columns];
+
+        for (i = 0; i < this.rows; ++i) {
+            for (j = 0; j < operand.columns; ++j) {
+                for (k=0; k<this.columns; ++k){
+                    MH[i][j] = BigDecimal.valueOf(0);
+                }
+            }
+        }
+
+        for (i = 0; i < this.rows; ++i) {
+            for (j = 0; j < operand.columns; ++j) {
+                for (k=0; k<this.columns; ++k){
+                    MH[i][j] = (MH[i][j]).add(this.element[i][k].multiply(operand.element[k][j]));
+                }
+            }
+        }
+        return MH;
+    }
+
     public void subtractRows(int row1, int row2)
     {
         for(int i=0; i < columns; i++)
         {
             BigDecimal value = getElmt(row1, i).subtract(getElmt(row2, i), mc);
+
+            if (value.abs().compareTo(new BigDecimal("1E-32")) == -1)
+            {
+                value = zero;
+            }
+
             setElmt(row1, i, value);
         }
 

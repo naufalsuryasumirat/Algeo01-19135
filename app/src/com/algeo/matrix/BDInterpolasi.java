@@ -23,6 +23,7 @@ public class BDInterpolasi {
         ArrayTitik = Titik;
         derajat = Titik.getRows();
     }
+
     public BDMatrix HasilInterpolasi(BDMatrix Matriks) {
         int ukuran = Matriks.getRows();
         BDMatrix Hasil = new BDMatrix(ukuran, 1);
