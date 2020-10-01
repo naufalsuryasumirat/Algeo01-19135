@@ -46,6 +46,15 @@ public class Interpolasi {
         }
         return y;
     }
+    public BigDecimal getTitikInterpolasi(BigDecimal x) {
+        double xin = x.doubleValue();
+        double y = ArrayHasil[0][0];
+        int ukuran = derajat + 1;
+        for (int i = 1; i < ukuran ; i++) {
+            y = y + (ArrayHasil[i][0] * Math.pow(xin, i));
+        }
+        return BigDecimal.valueOf(y);
+    }
 
     private void setArrayHasil(double[][] Hasil) {
         ArrayHasil = Hasil;
