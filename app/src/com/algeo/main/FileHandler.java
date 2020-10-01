@@ -138,6 +138,8 @@ public class FileHandler {
                 inputDataCol.nextBigDecimal();
             }
 
+//            System.out.println(rows + " " + columns);
+
             columns = columns/rows;
             inputDataCol.close();
 
@@ -147,6 +149,6 @@ public class FileHandler {
             error.printStackTrace();
         }
 
-        data = new BDMatrix(rows);
+        data = new BDMatrix(rows, columns);
     }
 }

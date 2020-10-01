@@ -145,7 +145,7 @@ public class BDMatrix {
             i++;
         }
 
-        return columns;
+        return columns-1;
     }
 
     /**
@@ -296,16 +296,16 @@ public class BDMatrix {
 
         // REMOVING DUPLICATE LEADING ONES FROM TOP
         int row = 0;
-        while (row < rows - 1) {
-            if (getLeadingIndex(row) == getLeadingIndex(row+1))
-            {
-                subtractRows(row+1, row);
-                divideRow(row+1, getLeadingElmt(row+1));
-                orderRows();
-            } else {
-                row++;
-            }
-        }
+//        while (row < rows - 1) {
+//            if (getLeadingIndex(row) == getLeadingIndex(row+1))
+//            {
+//                subtractRows(row+1, row);
+//                divideRow(row+1, getLeadingElmt(row+1));
+//                orderRows();
+//            } else {
+//                row++;
+//            }
+//        }
 
         // REMOVING DUPLICATE LEADING ONES FROM BOTTOM
         row = rows-1;
@@ -322,6 +322,7 @@ public class BDMatrix {
             row--;
         }
 
+        orderRows();
     }
 
     /** MATRIX MODIFIERS */
@@ -525,11 +526,6 @@ public class BDMatrix {
 
         while (i < this.columns)
         {
-            if (getElmt(row1, i).compareTo(zero) == 0 && getElmt(row2, i).compareTo(zero) == 0)
-            {
-                i++;
-            }
-
             if (getElmt(row1, i).compareTo(zero) != 0 && getElmt(row2, i).compareTo(zero) == 0)
             {
                 return 1;
@@ -543,6 +539,11 @@ public class BDMatrix {
             if (getElmt(row1, i).compareTo(zero) != 0 && getElmt(row2, i).compareTo(zero) != 0)
             {
                 return 0;
+            }
+
+            if (getElmt(row1, i).compareTo(zero) == 0 && getElmt(row2, i).compareTo(zero) == 0)
+            {
+                i++;
             }
         }
 

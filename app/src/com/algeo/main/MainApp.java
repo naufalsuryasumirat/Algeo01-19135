@@ -160,8 +160,13 @@ public class MainApp {
 
         BDMatrix C = hihi.getData();
         C.printMatrix("THIS IS C");
+//
+//        C.reducedEchelon();
+//
+//        C.printMatrix("THIS IS C REDUCED");
 
-        C.reducedEchelon();
+        BDSPL newHandler = new BDSPL(C);
+        newHandler.hitungGaussJordan();
 
         C.printMatrix("THIS IS C REDUCED");
 
