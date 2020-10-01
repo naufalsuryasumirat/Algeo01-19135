@@ -25,7 +25,7 @@ public class BDRegresiLinier {
     private void solve()
     {
            BDSPL solver = new BDSPL(equationData);
-           solver.hitungGauss();
+           solver.hitungGaussJordan();
 
     }
 
