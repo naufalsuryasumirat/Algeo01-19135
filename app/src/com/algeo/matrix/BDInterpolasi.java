@@ -58,10 +58,10 @@ public class BDInterpolasi {
                 output += ("P" + n + "(x) = ");
             }
             if (hasilInterpolasi.getElmt(i, 0).compareTo(BigDecimal.ZERO) == 1) {
-                output += ("" + hasilInterpolasi.getElmt(i, 0).stripTrailingZeros().toPlainString());
+                output += ("" + hasilInterpolasi.getElmt(i, 0).toEngineeringString());
             }
             else {
-                output += ("(" + hasilInterpolasi.getElmt(i, 0).stripTrailingZeros().toPlainString() + ")");
+                output += ("(" + hasilInterpolasi.getElmt(i, 0).toEngineeringString() + ")");
             }
             if (i != 0) {
                 output += ("x^" + i);
@@ -73,11 +73,13 @@ public class BDInterpolasi {
         return output;
     }
     //cek mau keluarannya gaada apa jadi double[][] atau double[]
-    public void interpolasi(BDMatrix MatriksTitik) {
+    public void interpolasi() {
         Scanner scan = new Scanner(System.in);
         //input n dari keyboard
         //int n = scan.nextInt();
         //int ukuran = (n + 1);
+        int n = scan.nextInt();
+        BDMatrix MatriksTitik = makeMatriksTitik(n);
         int ukuran = MatriksTitik.getRows();
         //double[][] MatriksTitik = new double[ukuran][2];
         //input titik-titik dan dijadikan sebuah matriks
@@ -133,8 +135,10 @@ public class BDInterpolasi {
             for (int i = (j + 1); i < ukuran; i++) {
                 BigDecimal numeratorRatio = MatriksInterpolasi.getElmt(i, j);
                 BigDecimal denominatorRatio = MatriksInterpolasi.getElmt(i, j);
+                BigDecimal ratio = numeratorRatio.divide(denominatorRatio, MathContext.DECIMAL32);
                 for (int kolom_kurang = 0; kolom_kurang < kolomInterpolasi; kolom_kurang++) {
-                    MatriksInterpolasi.setElmt(i, kolom_kurang, MatriksInterpolasi.getElmt(i, kolom_kurang).subtract((numeratorRatio.multiply(MatriksInterpolasi.getElmt(j, kolom_kurang).divide(denominatorRatio, MathContext.DECIMAL32)))));
+                    BigDecimal Element = ratio.multiply(MatriksInterpolasi.getElmt(j, kolom_kurang));
+                    MatriksInterpolasi.setElmt(i, kolom_kurang, MatriksInterpolasi.getElmt(i, kolom_kurang).subtract(Element));
                 }
             }
         }
@@ -144,15 +148,19 @@ public class BDInterpolasi {
             for (int i = (j - 1); i >= 0; i--) {
                 BigDecimal numeratorRatio = MatriksInterpolasi.getElmt(i, j);
                 BigDecimal denominatorRatio = MatriksInterpolasi.getElmt(j, j);
+                BigDecimal ratio = numeratorRatio.divide(denominatorRatio, MathContext.DECIMAL32);
                 for (int kolom_kurang = 0; kolom_kurang < kolomInterpolasi; kolom_kurang++) {
-                    MatriksInterpolasi.setElmt(i, kolom_kurang, MatriksInterpolasi.getElmt(i, kolom_kurang).subtract((numeratorRatio.multiply(MatriksInterpolasi.getElmt(j, kolom_kurang).divide(denominatorRatio, MathContext.DECIMAL32)))));
+                    BigDecimal Element = ratio.multiply(MatriksInterpolasi.getElmt(j, kolom_kurang));
+                    MatriksInterpolasi.setElmt(i, kolom_kurang, MatriksInterpolasi.getElmt(i, kolom_kurang).subtract(Element));
                 }
             }
         }
         for (int division = 0; division < ukuran; division++) {
             BigDecimal divider = MatriksInterpolasi.getElmt(division, division);
-            MatriksInterpolasi.setElmt(division, kolomInterpolasi - 1, MatriksInterpolasi.getElmt(division, kolomInterpolasi - 1).divide(divider, MathContext.DECIMAL32));
-            MatriksInterpolasi.setElmt(division, division, MatriksInterpolasi.getElmt(division, division).divide(divider, MathContext.DECIMAL32));
+            BigDecimal Elmt = MatriksInterpolasi.getElmt(division, (kolomInterpolasi - 1)).divide(divider, MathContext.DECIMAL32);
+            MatriksInterpolasi.setElmt(division, (kolomInterpolasi - 1), Elmt);
+            BigDecimal Elmt2 = MatriksInterpolasi.getElmt(division, division).divide(divider, MathContext.DECIMAL32);
+            MatriksInterpolasi.setElmt(division, division, Elmt2);
         }
         //harusnya abis ini reduced echelon form bentuknya
         //meng-ekstrak value a0 - an dari MatriksInterpolasi
@@ -167,6 +175,11 @@ public class BDInterpolasi {
             y = y + (Hasil[i] * Math.pow(x, i));
         }
         System.out.println(y);*/
+        String OUT = convertingToString(ArrayHasil);
+        Persamaan = OUT;
+        System.out.println(Persamaan);
+        BigDecimal ay = getTitikInterpolasi();
+        System.out.println(ay);
     }
     public void interpolate() {
         int ukuran = ArrayTitik.getRows();
