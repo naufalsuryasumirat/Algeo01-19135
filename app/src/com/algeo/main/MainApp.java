@@ -10,8 +10,7 @@ import java.math.MathContext;
 import java.math.RoundingMode;
 
 public class MainApp {
-    public static void main (String[] args)
-    {
+    public static void main(String[] args) {
         int state;
         int state2;
         int jenisinput;
@@ -19,6 +18,19 @@ public class MainApp {
 
         BDDeterminan determinanObject = new BDDeterminan();
         Interpolasi interpolasiObject = new Interpolasi();
+
+        BDMatrix matrix = new BDMatrix();
+
+        System.out.println("Input nama file");
+        Scanner readFileName = new Scanner(System.in);
+
+        FileHandler getMatrix = new FileHandler("app/test/" + readFileName.nextLine() + ".txt");
+        getMatrix.readFile();
+        matrix = getMatrix.getData();
+        matrix.printMatrix();
+
+        BDDeterminan det = new BDDeterminan();
+        System.out.println(det.hitungDeterminanOBE(matrix, matrix.getColumns()));
 
         state = 0;
         while (state != 6) {
@@ -58,7 +70,7 @@ public class MainApp {
                                 case 1 :
                                     BDMatrix Det = new BDMatrix();
 
-                                    menu_readMatrix(Det);
+                                    Det = menu_readMatrix(Det);
 
                                     String determinan = (determinanObject.hitungDeterminanEK(Det, Det.getRows())).toString();
                                     System.out.println(determinanObject.hitungDeterminanEK(Det, Det.getRows()));
@@ -184,7 +196,7 @@ public class MainApp {
         System.out.println("Apakah akan di save ke file? 0 untuk Tidak, 1 untuk Ya");
     }
 
-    private static void menu_readMatrix(BDMatrix matrix)
+    private static BDMatrix menu_readMatrix(BDMatrix matrix)
     {
         System.out.println("Input nama file");
         Scanner readFileName = new Scanner(System.in);
@@ -192,9 +204,9 @@ public class MainApp {
         FileHandler getMatrix = new FileHandler("app/test/" + readFileName.nextLine() + ".txt");
         getMatrix.readFile();
         matrix = getMatrix.getData();
-        matrix.printMatrix();
 
-        return;
+        return matrix;
     }
 
 }
+

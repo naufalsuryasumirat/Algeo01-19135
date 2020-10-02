@@ -8,6 +8,8 @@ public class BDDeterminan {
     BDMatrix attributeMatriks;
     int N;
 
+
+
     //read user input
     public void readData() {
         Scanner scan = new Scanner(System.in);
