@@ -8,8 +8,8 @@ Java bytecode berada pada out/production/app/com/algeo/ pada folder main dan jug
 
 Letak Source Code pada app/src
 
-![guide_1](https://github.com/naufalsuryasumirat/Algeo01-19135/blob/images/guide_1.jpg?raw=true "Title")
-![guide_1](https://github.com/naufalsuryasumirat/Algeo01-19135/blob/images/guide_2.jpg?raw=true "Title")
+![guide_1](guide_1.jpg?raw=true "Title")
+![guide_1](guide_2.jpg?raw=true "Title")
 
 Letak Source Code
 1. app
