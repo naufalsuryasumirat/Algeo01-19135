@@ -123,7 +123,6 @@ public class MainApp {
                         default:
                             break;
                     }
-                    invertedResult.printMatrix("INVERTED MATRIX");
                     menu_write(invertedResult);
                     break;
                 case 4 :
@@ -156,7 +155,7 @@ public class MainApp {
                             break;
 //                        default :
 //                            break;
-                    }
+                    } break;
                 case 5 :
                     //Regresi Linier Berganda
                     menu_input();
@@ -176,6 +175,7 @@ public class MainApp {
                         }
                     System.out.println(reglinner.getEquation());
                     System.out.println(reglinner.getResult());
+                    break;
             }
         }
     }
