@@ -221,7 +221,7 @@ public class BDSPL {
                     value += parseRow(solutionMatrix.getRow(i), solutionMatrix.columns);
                 }
 
-                System.out.println(value);
+//                System.out.println(value);
                 solution[i] = value;
             }
         } else {

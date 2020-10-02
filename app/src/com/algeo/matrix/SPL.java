@@ -304,7 +304,7 @@ public class SPL {
         }
 
         // Olah data sehingga menghasilkan matrix A^-1
-        matrixAinverse.element = inv.getInvers(matrixA.element);
+//        matrixAinverse.element = inv.getInvers(matrixA.element);
 
         // Operasikan data matrix inverse sehingga mengeluarkan matrix yang mengeuarkan nilai variabel
         matrixX.element = matrixAinverse.MkaliMatrix(matrixB.element); // Lalu kalikan matrix inverse dengan matrix B

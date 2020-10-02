@@ -10,6 +10,7 @@ public class BDRegresiLinier {
     BDMatrix equationData;
     BDMatrix Xk;
     BigDecimal result;
+    String equation;
 
     public BDRegresiLinier()
     {
@@ -17,6 +18,12 @@ public class BDRegresiLinier {
     }
 
     public BDRegresiLinier(BDMatrix inputData)
+    {
+        data = inputData;
+        processData(data);
+    }
+
+    public void setData(BDMatrix inputData)
     {
         data = inputData;
         processData(data);
@@ -30,8 +37,18 @@ public class BDRegresiLinier {
 
         equation.crossProductWith(equationData);
 
-        result = equation.getElmt(0, 0);
+        this.result = equation.getElmt(0, 0);
         return equation.getElmt(0, 0);
+    }
+
+    public String getEquation() {
+
+        equation = parseEquation();
+        return equation;
+    }
+
+    public BigDecimal getResult() {
+        return result;
     }
 
     public BigDecimal readAssertY()
@@ -94,6 +111,25 @@ public class BDRegresiLinier {
         BDSPL solver = new BDSPL(equationData);
         solver.hitungGauss();
         B = solver.solutionMatrix;
+    }
+
+    private String parseEquation()
+    {
+        String eq = "";
+        for(int i = 0; i < equationData.rows; i++)
+        {
+            if(i != 0)
+            {
+                eq += " + ";
+                eq += equationData.getElmt(i, equationData.columns-1) + "x" + i;
+            } else {
+                eq += equationData.getElmt(i, equationData.columns-1);
+            }
+        }
+
+        eq += " = y";
+
+        return  eq;
     }
 
     private void createLeastSquareNormalEquations()
