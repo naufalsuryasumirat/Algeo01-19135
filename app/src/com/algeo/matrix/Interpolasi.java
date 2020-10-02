@@ -75,7 +75,7 @@ public class Interpolasi {
         return returnBD;
     }
 
-    //Method buat manggil User Input buat dapetin titik kalo perlu
+    //Method buat manggil User Input buat dapetin titik dalam bentuk BigDecimal kalo perlu
     public BigDecimal getTitikInterpolasiBD() {
         Scanner scan = new Scanner(System.in);
         titikXBD = scan.nextBigDecimal();
