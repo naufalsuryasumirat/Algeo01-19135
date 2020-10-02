@@ -6,6 +6,8 @@
 Source code berada pada dua directory pada package yang berbeda com.algeo.main dan com.algeo.matrix
 Java bytecode berada pada out/production/app/com/algeo/ pada folder main dan juga matrix
 
+Letak Source Code pada app/src
+
 Letak Source Code
 1. app
   - src/com/algeo
