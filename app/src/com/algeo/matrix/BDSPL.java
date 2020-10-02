@@ -24,72 +24,6 @@ public class BDSPL {
         int solCount = 0;
 
         calcSPL(data);
-//        data.printMatrix("SOLUTION");
-
-//        if (data.columns-1-data.rows>0) { // inisialisasi nilai
-//            BigDecimal[][] matrixPeubahVal = new BigDecimal[data.rows][data.rows];
-//            for (i = 0; i < data.columns - 1 - data.rows; ++i) {
-//                for (j = 0; i < data.columns - 1; ++j) {
-//                    matrixPeubahVal[i][j] = BigDecimal.valueOf(0);
-//                }
-//            }
-//            for (i = data.rows - 1; i > 0; --i) {
-//                if (i == data.rows - 1) {
-//                    for (j = data.rows; j < data.columns - 1; ++j) {
-//                        matrixPeubahVal[i][j - data.rows] = data.element[i][j];
-//                    }
-//                } else {
-//                    for (j = i + 1; j < data.rows; ++j) {
-//                        for (k = 0; k < data.rows; ++k) {
-////                            matrixPeubahVal[k][i] += data.element[i][j] * matrixPeubahVal[k][i-1];
-//
-//                        }
-//                    }
-//                }
-//            }
-
-
-
-        /*
-        for(i=data.getColumns()-2 ; i>=0 ; --i){
-            if (i > data.rows){
-                String value = "";
-                value += "x" + (i + 1) + " = x"+(i+1);
-                solution[solCount] = value;
-                solCount++;
-            }
-            else {
-                String value = "";
-                value += "x" + (i + 1);
-                value += " = ";
-                if (data.element[i][data.columns-1].compareTo(BigDecimal.ZERO)!=0) {
-                    value += data.element[i][data.columns - 1];
-                }
-                for (j = data.rows; j < data.columns - 1; j++) {
-                    if (data.element[i][j].compareTo(BigDecimal.ZERO) != 0 && !value.equals("x" + (i + 1) + " = ")) {
-                        v
-
-
-                        /*
-                        if (data.element[i][j].compareTo(BigDecimal.ZERO) > 0) {
-                            matrix
-                            value += " - " + data.element[i][j] + "x" + (j + 1);
-                        } else if (data.element[i][j].compareTo(BigDecimal.ZERO) < 0) {
-                            value += " + " + (-1 * data.element[i][j].doubleValue()) + "x" + (j + 1);
-                        }
-
-                    }
-                    else if (data.element[i][j].compareTo(BigDecimal.ZERO) != 0 && value.equals("x" + (i + 1) + " = ")){
-                        if (data.element[i][j].compareTo(BigDecimal.ZERO) > 0) {
-                            value += "-" + data.element[i][j] + "x" + (j + 1);
-                        } else if (data.element[i][j].compareTo(BigDecimal.ZERO) < 0) {
-                            value += (-1 * data.element[i][j].doubleValue()) + "x" + (j + 1);
-                        }
-
-                    }
-            }
-        }*/
-//        }
     }
 
     public void hitungGaussJordan()
@@ -100,101 +34,6 @@ public class BDSPL {
         int solCount = 0;
 
         calcSPL(data);
-
-//        if (data.adaSolusi()) {
-//            for (i = 0; i < data.getColumns() - 1; i++) {
-//                if (i < data.rows && !data.kolomkosong(i)) {
-//                    String value = "";
-//                    value += "x" + (i + 1);
-//                    value += " = ";
-//                    if (data.element[i][data.columns - 1].compareTo(BigDecimal.ZERO) != 0) {
-//                        value += data.element[i][data.columns - 1];
-//                    }
-//                    for (j = i+1; j < data.columns - 1; j++) {
-//                        if (data.element[i][j].compareTo(BigDecimal.ZERO) != 0 && !value.equals("x" + (i + 1) + " = ")) {
-//                            if (data.element[i][j].compareTo(BigDecimal.ZERO) > 0) {
-//                                value += " - " + data.element[i][j] + "x" + (j + 1);
-//                            } else if (data.element[i][j].compareTo(BigDecimal.ZERO) < 0) {
-//                                value += " + " + (-1 * data.element[i][j].doubleValue()) + "x" + (j + 1);
-//                            }
-//
-//                        } else if (data.element[i][j].compareTo(BigDecimal.ZERO) != 0 && value.equals("x" + (i + 1) + " = ")) {
-//                            if (data.element[i][j].compareTo(BigDecimal.ZERO) > 0) {
-//                                value += "-" + data.element[i][j] + "x" + (j + 1);
-//                            } else if (data.element[i][j].compareTo(BigDecimal.ZERO) < 0) {
-//                                value += (-1 * data.element[i][j].doubleValue()) + "x" + (j + 1);
-//                            }
-//
-//                        } //else if (data.element[i][j].compareTo(B) != 0 && data.getElmt(i,data.getColumns()-1)) {
-//                        //   value += " 0";
-//                        // }
-//                    }
-//                    solution[solCount] = value;
-//                    solCount++;
-//                } else {
-//                    String value = "";
-//                    value += "x" + (i + 1) + " = x" + (i + 1);
-//                    solution[solCount] = value;
-//                    solCount++;
-//                }
-//            }
-//
-//            for (i = 0; i < solution.length; ++i) {
-//                System.out.println(solution[i]);
-//            }
-//        }
-//        else {
-//            solution[solCount] = "Solusi tidak ada";
-//            System.out.println(solution[solCount]);
-//        }
-
-        /*
-        //if (data.getLeadingElmt(data.get).compareTo()) {
-        for(i = 0; i < data.getColumns()-1; i++) {
-            if (i<data.rows) {
-                String value = "";
-                value += "x" + (i + 1);
-                value += " = ";
-                if (data.element[i][data.columns-1].compareTo(BigDecimal.ZERO)!=0) {
-                    value += data.element[i][data.columns - 1];
-                }
-                for (j = data.rows; j < data.columns - 1; j++) {
-                    if (data.element[i][j].compareTo(BigDecimal.ZERO) != 0 && !value.equals("x" + (i + 1) + " = ")) {
-                        if (data.element[i][j].compareTo(BigDecimal.ZERO) > 0) {
-                            value += " - " + data.element[i][j] + "x" + (j + 1);
-                        } else if (data.element[i][j].compareTo(BigDecimal.ZERO) < 0) {
-                            value += " + " + (-1 * data.element[i][j].doubleValue()) + "x" + (j + 1);
-                        }
-                    }
-                    else if (data.element[i][j].compareTo(BigDecimal.ZERO) != 0 && value.equals("x" + (i + 1) + " = ")){
-                        if (data.element[i][j].compareTo(BigDecimal.ZERO) > 0) {
-                            value += "-" + data.element[i][j] + "x" + (j + 1);
-                        } else if (data.element[i][j].compareTo(BigDecimal.ZERO) < 0) {
-                            value += (-1 * data.element[i][j].doubleValue()) + "x" + (j + 1);
-                        }
-
-                    }
-
-                        else if(i != data.getColumns()-2)
-                        {
-                            value += "+";
-                        }
-                }
-      //          solution[solCount] = value;
-      //          solCount++;
-            }
-            else {
-                String value = "";
-                value += "x" + (i + 1) + " = x"+(i+1);
-                solution[solCount] = value;
-                solCount++;
-            }
-        }
-
-        for (i=0;i<solution.length;++i){
-            System.out.println(solution[i]);
-        }
-        }*/
     }
 
 
@@ -309,7 +148,6 @@ public class BDSPL {
             }
         }
         solutionMatrix = solutionData;
-        solutionData.printMatrix("THIS IS PROPOSED SOLUTION DATA");
         parseSolutionMatrix();
     }
 

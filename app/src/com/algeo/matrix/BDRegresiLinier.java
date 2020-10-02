@@ -26,43 +26,46 @@ public class BDRegresiLinier {
         constants.addHorizontal(X);
         X = new BDMatrix(constants);
 
-        X.printMatrix("THIS IS X");
-        Y.printMatrix("THIS IS Y");
-
         createLeastSquareNormalEquations();
-        equationData.printMatrix("THIS IS DATA");
 
         solve();
     }
 
+    public BigDecimal assertY(BDMatrix inputData)
+    {
+        BigDecimal result = BigDecimal.ZERO;
+        BDMatrix equation = new BDMatrix(1, 1, BigDecimal.ONE);
+        equation.addHorizontal(inputData);
+
+        equation.crossProductWith(equationData);
+
+        return equation.getElmt(0, 0);
+    }
+
+    public BigDecimal readAssertY()
+    {
+        BDMatrix point = new BDMatrix(data.columns-1, 1);
+        point.readUserMatrix();
+
+        return assertY(point);
+    }
+
     private void solve()
     {
-//           BDSPL solver = new BDSPL(equationData);
-//           solver.hitungGaussJordan();
-           equationData.reducedEchelon();
-           equationData.printMatrix("SOLUTION");
+        BDSPL solver = new BDSPL(equationData);
+        solver.hitungGauss();
+        B = solver.solutionMatrix;
     }
 
     private void createLeastSquareNormalEquations()
     {
         BDMatrix temp = X.transpose();
 
-        temp.printMatrix("THIS IS TEMP");
-        X.printMatrix("THIS IS ORIGINAL X");
-
         X = temp.crossProductWith(X);
         Y = temp.crossProductWith(Y);
 
-
-        X.printMatrix("THIS IS X AFTER");
-
         equationData = X;
-
-        equationData.printMatrix("THIS IS EQ DATA");
-
         equationData.addHorizontal(Y);
-
-        equationData.printMatrix("THIS IS NEW EQ DATA");
     }
 
 }
