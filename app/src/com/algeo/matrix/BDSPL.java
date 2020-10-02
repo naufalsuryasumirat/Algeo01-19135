@@ -153,8 +153,20 @@ public class BDSPL {
                 solution[i] = matrixX.element[i][j].stripTrailingZeros().toPlainString();
             }
         }
-
     }
+
+    public String getSolution()
+    {
+        String resultString = "";
+        for(String eq: solution)
+        {
+            resultString += eq;
+            resultString += "\n";
+        }
+
+        return resultString;
+    }
+
 
     private void calcSPL(BDMatrix input)
     {

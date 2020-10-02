@@ -33,14 +33,8 @@ public class BDRegresiLinier {
     {
         this.result = BigDecimal.ZERO;
 
-        inputData.printMatrix("THIS IS THE INPUT DATA");
-
         BDMatrix equation = new BDMatrix(1, 1, BigDecimal.ONE);
         equation.addHorizontal(inputData.transpose());
-
-        equation.printMatrix("THE EQUATION");
-
-
         equationData.removeHorizontal(4, 0);
 
         for(int i = 0; i < equationData.rows; i++)
@@ -78,12 +72,12 @@ public class BDRegresiLinier {
 
         boolean moreInput = true;
 
-        data = new BDMatrix(0, N);
+        data = new BDMatrix(0, N+1);
 
 
         while(moreInput)
         {
-            BDMatrix row = new BDMatrix(1, N);
+            BDMatrix row = new BDMatrix(1, N+1);
             row.readUserMatrix();
             data = data.addNewRow(row);
 
@@ -94,15 +88,11 @@ public class BDRegresiLinier {
             {
                 moreInput = false;
             }
-
         }
 
         data.printMatrix();
-
         processData(data);
 
-        System.out.println("INPUT Xk");
-        System.out.println(readAssertY());
     }
 
     private void processData(BDMatrix inputData)

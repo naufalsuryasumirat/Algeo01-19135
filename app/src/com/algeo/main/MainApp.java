@@ -21,17 +21,6 @@ public class MainApp {
 
         BDMatrix matrix = new BDMatrix();
 
-//        System.out.println("Input nama file");
-//        Scanner readFileName = new Scanner(System.in);
-//
-//        FileHandler getMatrix = new FileHandler("app/test/" + readFileName.nextLine() + ".txt");
-//        getMatrix.readFile();
-//        matrix = getMatrix.getData();
-//        matrix.printMatrix();
-//
-//        BDDeterminan det = new BDDeterminan();
-//        System.out.println(det.hitungDeterminanOBE(matrix, matrix.getColumns()));
-
         state = 0;
         while (state != 6) {
             main_menu();
@@ -41,16 +30,40 @@ public class MainApp {
                 case 1 :
                     menu_2();
                     state2 = scan.nextInt();
+
+                    BDMatrix SPLQuery = new BDMatrix();
+
+                    menu_input();
+                    jenisinput = scan.nextInt();
+
+                    switch(jenisinput)
+                    {
+                        case 1:
+                            SPLQuery = menu_readMatrix(SPLQuery);
+                            break;
+                        case 2:
+                            SPLQuery.readUserMatrix();
+                            break;
+                    }
+
+                    BDSPL SPLCalc = new BDSPL(SPLQuery);
+                    String solutionToSPL = "";
+
                     switch(state2) {
                         //Metode eliminasi gauss
-
                         case 1 :
+                            SPLCalc.hitungGauss();
+                            solutionToSPL = SPLCalc.getSolution();
                             break;
                         //Metode eliminasi gauss-jordan
                         case 2 :
+                            SPLCalc.hitungGaussJordan();
+                            solutionToSPL = SPLCalc.getSolution();
                             break;
                         //Metode matriks balikan
                         case 3 :
+                            SPLCalc.hitungInvers();
+//                            solutionToSPL = SPLCalc.getSolution();
                             break;
                         //Kaidah cramer
                         case 4 :
@@ -58,6 +71,8 @@ public class MainApp {
                         default :
                             break;
                     }
+
+                    System.out.println(solutionToSPL);
                     break;
                 case 2 :
                     menu_determinan();
@@ -171,6 +186,7 @@ public class MainApp {
                             break;
                         case 2 :
                             reglinner.readData();
+                            reglinner.readAssertY();
                             break;
                         }
                     System.out.println(reglinner.getEquation());
@@ -189,9 +205,9 @@ public class MainApp {
         System.out.println("6. Keluar");
     }
     private static void menu_2() {
-        System.out.println("1. Sistem Persamaan Linier");
-        System.out.println("2. Metode Eliminasi Gauss");
-        System.out.println("3. Metode Eliminasi Gauss-Jordan");
+        System.out.println("1. Metode ELiminasi Gauss");
+        System.out.println("2. Metode Eliminasi Gauss-Jordan");
+        System.out.println("3. Metode Inverse");
         System.out.println("4. Kaidah Cramer");
     }
     private static void menu_determinan() {
