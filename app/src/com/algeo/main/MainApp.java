@@ -21,16 +21,16 @@ public class MainApp {
 
         BDMatrix matrix = new BDMatrix();
 
-        System.out.println("Input nama file");
-        Scanner readFileName = new Scanner(System.in);
-
-        FileHandler getMatrix = new FileHandler("app/test/" + readFileName.nextLine() + ".txt");
-        getMatrix.readFile();
-        matrix = getMatrix.getData();
-        matrix.printMatrix();
-
-        BDDeterminan det = new BDDeterminan();
-        System.out.println(det.hitungDeterminanOBE(matrix, matrix.getColumns()));
+//        System.out.println("Input nama file");
+//        Scanner readFileName = new Scanner(System.in);
+//
+//        FileHandler getMatrix = new FileHandler("app/test/" + readFileName.nextLine() + ".txt");
+//        getMatrix.readFile();
+//        matrix = getMatrix.getData();
+//        matrix.printMatrix();
+//
+//        BDDeterminan det = new BDDeterminan();
+//        System.out.println(det.hitungDeterminanOBE(matrix, matrix.getColumns()));
 
         state = 0;
         while (state != 6) {
@@ -43,6 +43,7 @@ public class MainApp {
                     state2 = scan.nextInt();
                     switch(state2) {
                         //Metode eliminasi gauss
+
                         case 1 :
                             break;
                         //Metode eliminasi gauss-jordan
@@ -71,42 +72,21 @@ public class MainApp {
                                     BDMatrix Det = new BDMatrix();
 
                                     Det = menu_readMatrix(Det);
+                                    BigDecimal resDet = determinanObject.hitungDeterminanEK(Det, Det.getRows());
 
-                                    String determinan = (determinanObject.hitungDeterminanEK(Det, Det.getRows())).toString();
+                                    String determinan = (resDet.toString());
                                     System.out.println(determinanObject.hitungDeterminanEK(Det, Det.getRows()));
-                                    menu_write();
-                                    write = scan.nextInt();
-                                    switch(write) {
-                                        case 0 :
-                                            break;
-                                        case 1 :
-                                            //writefile
-//                                            inputMethod.setOutputString(determinan);
-//                                            inputMethod.writeFile("./../../../../test/" + filename + "_hasil.txt");
-                                            break;
-                                        default :
-                                            break;
-                                    }
+                                    menu_write(determinanObject.hitungDeterminanEK(Det, Det.getRows()));
                                     break;
                                 case 2 :
                                     determinanObject.readData();
                                     System.out.println(determinanObject.getAttributeDeterminanEK());
-                                    menu_write();
-                                    write = scan.nextInt();
-                                    switch(write) {
-                                        case 0 :
-                                            break;
-                                        case 1 :
-                                            //salah
-                                            FileHandler inputMethod2 = new FileHandler("as");
-                                            inputMethod2.setOutputString(determinanObject.getAttributeDeterminanEK().toString());
-
-
-                                    }
+                                    menu_write(determinanObject.getAttributeDeterminanEK());
                                     break;
                                 default :
                                     break;
                             }
+                            break;
                         //Metode OBE
                         case 2 :
                             menu_input();
@@ -121,9 +101,11 @@ public class MainApp {
                                 case 2 :
                                     break;
                             }
+                            break;
                     }
                 case 3 :
                     //Matriks Balikan
+
                     break;
                 case 4 :
                     //Interpolasi Polinom
@@ -143,7 +125,7 @@ public class MainApp {
                             interpolasiObject.interpolasi();
                             String interpolasi = interpolasiObject.getPersamaan();
                             System.out.println(interpolasi);
-                            menu_write();
+                            menu_write(interpolasi);
                             write = scan.nextInt();
                             switch(write) {
                                 case 0 :
@@ -165,7 +147,7 @@ public class MainApp {
                             break;
                         case 2 :
                             break;
-                    }
+                }
             }
         }
     }
@@ -192,8 +174,60 @@ public class MainApp {
         System.out.println("1. Dari File");
         System.out.println("2. Dari Keyboard");
     }
-    private static void menu_write() {
+    private static void menu_write(BDMatrix matrix) {
         System.out.println("Apakah akan di save ke file? 0 untuk Tidak, 1 untuk Ya");
+        Scanner readFileName = new Scanner(System.in);
+
+        switch (readFileName.nextLine())
+        {
+            case("0"):
+                break;
+            case("1"):
+                System.out.println("Input nama file tujuan save");
+                FileHandler getMatrix = new FileHandler("app/test/_" + readFileName.nextLine() + ".txt");
+                getMatrix.setOutputString(matrix.convertToString());
+                getMatrix.writeFile("app/test/_" + readFileName.nextLine() + ".txt");
+        }
+
+        return;
+    }
+
+    private static void menu_write(String input) {
+        System.out.println("Apakah akan di save ke file? 0 untuk Tidak, 1 untuk Ya");
+        Scanner readFileName = new Scanner(System.in);
+
+        switch (readFileName.nextLine())
+        {
+            case("0"):
+                break;
+            case("1"):
+                System.out.println("Input nama file tujuan save");
+                FileHandler getMatrix = new FileHandler("app/test/_" + readFileName.nextLine() + ".txt");
+                getMatrix.setOutputString(input);
+                getMatrix.writeFile("app/test/_" + readFileName.nextLine() + ".txt");
+        }
+
+        return;
+    }
+
+    private static void menu_write(BigDecimal number) {
+        System.out.println("Apakah akan di save ke file? 0 untuk Tidak, 1 untuk Ya");
+        Scanner readFileName = new Scanner(System.in);
+
+        switch (readFileName.nextLine())
+        {
+            case("0"):
+                break;
+            case("1"):
+                System.out.println("Input nama file tujuan save");
+                String filename = "app/test/_" + readFileName.nextLine() + ".txt";
+
+                FileHandler getMatrix = new FileHandler(filename);
+                getMatrix.setOutputString(number.toPlainString());
+                getMatrix.writeFile(filename);
+        }
+
+        return;
     }
 
     private static BDMatrix menu_readMatrix(BDMatrix matrix)
