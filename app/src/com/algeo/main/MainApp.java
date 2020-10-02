@@ -135,24 +135,24 @@ public class MainApp {
                             //Interpolasi (BDMatrix Titik)
                             System.out.println("Masukkan nama file");
                             String filename = scan.nextLine();
-                            //benerin path nya
-                            FileHandler inputMethod = new FileHandler("./../../../../test/" + filename + ".txt");
-
+                            FileHandler inputMethod = new FileHandler("app/test/" + filename + ".txt");
+                            inputMethod.readFile();
+                            BDMatrix MatrixInterpolasi = inputMethod.getData();
+                            Interpolasi interpolasiObjects = new Interpolasi(MatrixInterpolasi);
+                            String persamaan = interpolasiObjects.getPersamaan();
+                            double titikInterpolasi = interpolasiObjects.getTitikInterpolasi();
+                            System.out.println(persamaan);
+                            System.out.println(titikInterpolasi);
+                            menu_write(persamaan);
                             break;
                         case 2 :
                             interpolasiObject.readData();
                             interpolasiObject.interpolasi();
                             String interpolasi = interpolasiObject.getPersamaan();
                             System.out.println(interpolasi);
+                            double titik = interpolasiObject.getTitikInterpolasi();
+                            System.out.println(titik);
                             menu_write(interpolasi);
-                            write = scan.nextInt();
-                            switch(write) {
-                                case 0 :
-                                    break;
-                                case 1 :
-                                    //write
-                                    break;
-                            }
                             break;
                         default :
                             break;
