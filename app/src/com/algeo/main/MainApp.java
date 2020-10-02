@@ -87,22 +87,22 @@ public class MainApp {
                                     break;
                             }
                             break;
-                        //Metode OBE
-                        case 2 :
-                            menu_input();
-                            jenisinput = scan.nextInt();
-                            switch(jenisinput) {
-                                case 1 :
-                                    //filepath salah
-                                    System.out.println("Masukkan nama file");
-                                    String filename = scan.nextLine();
-                                    FileHandler inputMethod = new FileHandler(filename);
-                                    break;
+                                //Metode OBE
                                 case 2 :
-                                    break;
-                            }
+                                    menu_input();
+                                    jenisinput = scan.nextInt();
+                                    switch(jenisinput) {
+                                        case 1 :
+                                            //filepath salah
+                                            System.out.println("Masukkan nama file");
+                                            String filename = scan.nextLine();
+                                            FileHandler inputMethod = new FileHandler(filename);
+                                            break;
+                                        case 2 :
+                                            break;
+                                    }
                             break;
-                    }
+                    } break;
                 case 3 :
                     //Matriks Balikan
                     menu_input();
@@ -123,7 +123,6 @@ public class MainApp {
                         default:
                             break;
                     }
-                    invertedResult.printMatrix("INVERTED MATRIX");
                     menu_write(invertedResult);
                     break;
                 case 4 :
@@ -154,24 +153,29 @@ public class MainApp {
                             System.out.println(titik);
                             menu_write(interpolasi);
                             break;
-                        default :
-                            break;
-                    }
+//                        default :
+//                            break;
+                    } break;
                 case 5 :
                     //Regresi Linier Berganda
                     menu_input();
                     jenisinput = scan.nextInt();
                     BDMatrix reglinData = new BDMatrix();
-
+                    BDRegresiLinier reglinner = new BDRegresiLinier();
                     switch(jenisinput) {
                         case 1 :
                             reglinData = menu_readMatrix(reglinData);
-                            BDRegresiLinier reglinner = new BDRegresiLinier(reglinData);
-                            
+                            reglinner.setData(reglinData);
+                            System.out.println("Input Xk");
+                            reglinner.readAssertY();
                             break;
                         case 2 :
+                            reglinner.readData();
                             break;
-                }
+                        }
+                    System.out.println(reglinner.getEquation());
+                    System.out.println(reglinner.getResult());
+                    break;
             }
         }
     }

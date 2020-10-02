@@ -10,6 +10,7 @@ public class BDRegresiLinier {
     BDMatrix equationData;
     BDMatrix Xk;
     BigDecimal result;
+    String equation;
 
     public BDRegresiLinier()
     {
@@ -22,16 +23,43 @@ public class BDRegresiLinier {
         processData(data);
     }
 
+    public void setData(BDMatrix inputData)
+    {
+        data = inputData;
+        processData(data);
+    }
+
     public BigDecimal assertY(BDMatrix inputData)
     {
-        BigDecimal result = BigDecimal.ZERO;
+        this.result = BigDecimal.ZERO;
+
+        inputData.printMatrix("THIS IS THE INPUT DATA");
+
         BDMatrix equation = new BDMatrix(1, 1, BigDecimal.ONE);
-        equation.addHorizontal(inputData);
+        equation.addHorizontal(inputData.transpose());
 
-        equation.crossProductWith(equationData);
+        equation.printMatrix("THE EQUATION");
 
-        result = equation.getElmt(0, 0);
-        return equation.getElmt(0, 0);
+
+        equationData.removeHorizontal(4, 0);
+
+        for(int i = 0; i < equationData.rows; i++)
+        {
+            BigDecimal val = equationData.getElmt(i, 0).multiply(equation.getElmt(0, i));
+            this.result = this.result.add(val);
+        }
+
+        return this.result;
+    }
+
+    public String getEquation() {
+
+        equation = parseEquation();
+        return equation;
+    }
+
+    public BigDecimal getResult() {
+        return result;
     }
 
     public BigDecimal readAssertY()
@@ -50,11 +78,14 @@ public class BDRegresiLinier {
 
         boolean moreInput = true;
 
+        data = new BDMatrix(0, N);
+
+
         while(moreInput)
         {
             BDMatrix row = new BDMatrix(1, N);
             row.readUserMatrix();
-            data.addNewRow(row);
+            data = data.addNewRow(row);
 
             System.out.println("BACA DATA LAGI? 1 jika ya, 0 jika tidak");
             int nextData = dataReader.nextInt();
@@ -65,6 +96,8 @@ public class BDRegresiLinier {
             }
 
         }
+
+        data.printMatrix();
 
         processData(data);
 
@@ -94,6 +127,25 @@ public class BDRegresiLinier {
         BDSPL solver = new BDSPL(equationData);
         solver.hitungGauss();
         B = solver.solutionMatrix;
+    }
+
+    private String parseEquation()
+    {
+        String eq = "";
+        for(int i = 0; i < equationData.rows; i++)
+        {
+            if(i != 0)
+            {
+                eq += " + ";
+                eq += equationData.getElmt(i, equationData.columns-1) + "x" + i;
+            } else {
+                eq += equationData.getElmt(i, equationData.columns-1);
+            }
+        }
+
+        eq += " = y";
+
+        return  eq;
     }
 
     private void createLeastSquareNormalEquations()

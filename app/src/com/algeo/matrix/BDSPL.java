@@ -74,6 +74,59 @@ public class BDSPL {
         }
     }
 
+    public void hitungKramerDBL(double[][] matrixAugmented){
+        int i,j,k,l;
+        double detA;
+        String[] solusi = new String[matrixAugmented.length];
+
+        double[][] matrixA = new double[matrixAugmented.length][matrixAugmented.length];
+        for (i=0;i<matrixAugmented.length;++i){
+            for (j=0;j<matrixAugmented.length;++j){
+                matrixA[i][j] = matrixAugmented[i][j];
+            }
+        }
+
+
+        //Set matrix B dari matrix augmented
+        double[] matrixB = new double[matrixAugmented.length];
+        for (i=0;i<matrixAugmented.length;++i){
+            matrixB[i] = matrixAugmented[i][matrixAugmented[0].length-1];
+        }
+
+        if (matrixAugmented.length != matrixAugmented[0].length-1){
+            solusi[0] = "Matriks A bukan matriks bujur sangkar";
+            System.out.println(solusi[0]);
+        }
+        else {
+            Determinan det = new Determinan();
+            detA = det.hitungDeterminanOBE(matrixA, matrixAugmented.length);
+            double[] ArrayDet = new double[matrixAugmented.length];
+            for (j=0; j<matrixAugmented.length; ++j){
+                // Kopi elemen matrix A ke matrix temporary
+                double[][] tempMatrix = new double[matrixAugmented.length][matrixAugmented.length];
+                for (k=0;k<matrixAugmented.length;++k){
+                    for (l=0;l<matrixAugmented.length;++l){
+                        tempMatrix[k][l] = matrixA[k][l];
+                    }
+                }
+                // Ganti satu kolom matrix A dengan matrix B
+                for (i=0;i<matrixAugmented.length;++i){
+                    tempMatrix[i][j] = matrixB[i];
+                }
+
+                ArrayDet[j] = det.hitungDeterminanOBE(tempMatrix, matrixAugmented.length);
+                //System.out.println("det A"+(j+1)+" = "+ArrayDet[j]);
+            }
+
+            System.out.println("det A"+ " = "+detA);
+            for (i=0; i< solusi.length; ++i) {
+                solusi[i] = ("x"+(i+1)+" = "+(ArrayDet[i]/detA));
+                System.out.println(solusi[i]);
+            }
+        }
+
+    }
+
     public void hitungInvers()
     {
         int i,j;
@@ -168,7 +221,7 @@ public class BDSPL {
                     value += parseRow(solutionMatrix.getRow(i), solutionMatrix.columns);
                 }
 
-                System.out.println(value);
+//                System.out.println(value);
                 solution[i] = value;
             }
         } else {
