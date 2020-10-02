@@ -227,29 +227,65 @@ public class MainApp {
                     menu_determinan();
                     state2 = scan.nextInt();
                     switch(state2) {
+                        //Metode EK
                         case 1 :
                             menu_input();
                             jenisinput = scan.nextInt();
                             switch(jenisinput) {
                                 case 1 :
+                                    Scanner detScan = new Scanner(System.in);
                                     System.out.println("Masukkan nama file");
-                                    String filename = scan.nextLine();
-                                    //path nya benerin
-                                    FileHandler inputMethod = new FileHandler(filename);
-                                    break;
-                                case 2 :
-                                    determinanObject.readData();
-                                    System.out.println(determinanObject.getAttributeDeterminanEK());
-                                    System.out.println(determinanObject.getAttributeDeterminanOBE());
+                                    String filename = detScan.nextLine();
+                                    FileHandler inputMethod = new FileHandler("../../../../../test/" + filename + ".txt");
+                                    inputMethod.readFile();
+                                    BDMatrix Det = inputMethod.getData();
+                                    String determinan = (determinanObject.hitungDeterminanEK(Det, Det.getRows())).toString();
+                                    System.out.println(determinanObject.hitungDeterminanEK(Det, Det.getRows()));
                                     menu_write();
                                     write = scan.nextInt();
                                     switch(write) {
                                         case 0 :
                                             break;
                                         case 1 :
-                                            //write
+                                            //writefile
+                                            inputMethod.setOutputString(determinan);
+                                            inputMethod.writeFile("./../../../../test/" + filename + "_hasil.txt");
+                                            break;
+                                        default :
+                                            break;
+                                    }
+                                    break;
+                                case 2 :
+                                    determinanObject.readData();
+                                    System.out.println(determinanObject.getAttributeDeterminanEK());
+                                    menu_write();
+                                    write = scan.nextInt();
+                                    switch(write) {
+                                        case 0 :
+                                            break;
+                                        case 1 :
+                                            //salah
+                                            FileHandler inputMethod2 = new FileHandler("as");
+                                            inputMethod2.setOutputString(determinanObject.getAttributeDeterminanEK().toString());
+
 
                                     }
+                                    break;
+                                default :
+                                    break;
+                            }
+                        //Metode OBE
+                        case 2 :
+                            menu_input();
+                            jenisinput = scan.nextInt();
+                            switch(jenisinput) {
+                                case 1 :
+                                    //filepath salah
+                                    System.out.println("Masukkan nama file");
+                                    String filename = scan.nextLine();
+                                    FileHandler inputMethod = new FileHandler(filename);
+                                    break;
+                                case 2 :
                                     break;
                             }
 
@@ -268,13 +304,25 @@ public class MainApp {
                             System.out.println("Masukkan nama file");
                             String filename = scan.nextLine();
                             //benerin path nya
-                            FileHandler inputMethod = new FileHandler("../../../../test/" + filename + ".txt");
+                            FileHandler inputMethod = new FileHandler("./../../../../test/" + filename + ".txt");
 
                             break;
                         case 2 :
                             interpolasiObject.readData();
                             interpolasiObject.interpolasi();
                             String interpolasi = interpolasiObject.getPersamaan();
+                            System.out.println(interpolasi);
+                            menu_write();
+                            write = scan.nextInt();
+                            switch(write) {
+                                case 0 :
+                                    break;
+                                case 1 :
+                                    //write
+                                    break;
+                            }
+                            break;
+                        default :
                             break;
                     }
                 case 5 :
