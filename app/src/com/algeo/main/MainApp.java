@@ -56,12 +56,10 @@ public class MainApp {
                             jenisinput = scan.nextInt();
                             switch(jenisinput) {
                                 case 1 :
-                                    Scanner detScan = new Scanner(System.in);
-                                    System.out.println("Masukkan nama file");
-                                    String filename = detScan.nextLine();
-                                    FileHandler inputMethod = new FileHandler("app/test/" + filename + ".txt");
-                                    inputMethod.readFile();
-                                    BDMatrix Det = inputMethod.getData();
+                                    BDMatrix Det = new BDMatrix();
+
+                                    menu_readMatrix(Det);
+
                                     String determinan = (determinanObject.hitungDeterminanEK(Det, Det.getRows())).toString();
                                     System.out.println(determinanObject.hitungDeterminanEK(Det, Det.getRows()));
                                     menu_write();
@@ -71,8 +69,8 @@ public class MainApp {
                                             break;
                                         case 1 :
                                             //writefile
-                                            inputMethod.setOutputString(determinan);
-                                            inputMethod.writeFile("./../../../../test/" + filename + "_hasil.txt");
+//                                            inputMethod.setOutputString(determinan);
+//                                            inputMethod.writeFile("./../../../../test/" + filename + "_hasil.txt");
                                             break;
                                         default :
                                             break;
@@ -111,8 +109,6 @@ public class MainApp {
                                 case 2 :
                                     break;
                             }
-
-
                     }
                 case 3 :
                     //Matriks Balikan
@@ -197,5 +193,8 @@ public class MainApp {
         getMatrix.readFile();
         matrix = getMatrix.getData();
         matrix.printMatrix();
+
+        return;
     }
+
 }
