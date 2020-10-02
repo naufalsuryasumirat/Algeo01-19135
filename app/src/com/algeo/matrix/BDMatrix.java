@@ -82,6 +82,15 @@ public class BDMatrix {
         }
     }
 
+    public BDMatrix(BDMatrix copyFrom)
+    {
+        this.rows = copyFrom.getRows();
+        this.columns = copyFrom.getColumns();
+        this.element = copyFrom.element;
+    }
+
+
+
 
     /**
     * GETTERS AND SETTERS
@@ -194,6 +203,27 @@ public class BDMatrix {
                 this.element[i][j] = scan1.nextBigDecimal();
             }
         }
+    }
+
+    public boolean adaSolusi() {
+        int i,j,k;
+        boolean isSolusiAda;
+        isSolusiAda = true;
+        for (i=0; i<this.getRows(); ++i){
+            if (this.getLeadingIndex(i)==this.getColumns()-1 && this.getLeadingElmt(i).compareTo(BigDecimal.ZERO)!=0){
+                return !isSolusiAda;
+            }
+        }
+        return isSolusiAda;
+    }
+
+    public boolean kolomkosong(int idxcol){
+        for (int i=0;i<rows;++i){
+            if (this.getElmt(i,idxcol).compareTo(BigDecimal.ZERO)!=0) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /** MATRIX LOGGING */
@@ -338,7 +368,6 @@ public class BDMatrix {
         }
 
         columns += newData.columns;
-        columns += newData.columns;
         element = temp;
     }
 
@@ -371,7 +400,7 @@ public class BDMatrix {
         {
             for(int j = 0; j < columns; j++)
             {
-                result.setElmt(i, j, getElmt(j, i));
+                result.setElmt(j, i, getElmt(i, j));
             }
         }
 
@@ -406,7 +435,7 @@ public class BDMatrix {
         int originalColumns = operand.columns;
 
         operand = operand.transpose();
-        BDMatrix result = new BDMatrix(columns);
+        BDMatrix result = new BDMatrix(rows, originalColumns);
 
         for(int i = 0; i < rows; i++)
         {
@@ -420,6 +449,12 @@ public class BDMatrix {
     }
 
     /** ROW ARITHMETICS */
+
+    public boolean isAllZero(int row)
+    {
+        return (getLeadingIndex(row) == columns-1 && getLeadingElmt(row).compareTo(BigDecimal.ZERO) == 0);
+    }
+
     public void addRows(int row1, int row2)
     {
         BigDecimal[] temp = new BigDecimal[columns];
