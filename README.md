@@ -8,6 +8,9 @@ Java bytecode berada pada out/production/app/com/algeo/ pada folder main dan jug
 
 Letak Source Code pada app/src
 
+![Alt text](images/guide_1.jpg=true "Title")
+![Alt_text](images/guide_2.jpg=true "Title")
+
 Letak Source Code
 1. app
   - src/com/algeo
