@@ -356,6 +356,20 @@ public class BDMatrix {
     }
 
     /** MATRIX MODIFIERS */
+    public BDMatrix addNewRow(BDMatrix newRow)
+    {
+        BDMatrix temp = new BDMatrix(rows+1, columns);
+
+        int i = 0;
+        for(i = 0; i < rows; i++)
+        {
+            temp.setRow(i, getRow(i));
+        }
+
+        temp.setRow(i, newRow.getRow(0));
+        return temp;
+    }
+
     // THIS ADDS A COLUMN TO THE RIGHT
     public void addHorizontal(BDMatrix newData)
     {
@@ -422,6 +436,38 @@ public class BDMatrix {
                 }
             }
         }
+    }
+
+    public double[][] convertToDoubleMatrix()
+    {
+        double[][] result = new double[rows][columns];
+
+        for(int i = 0; i < rows; i++)
+        {
+            for(int j = 0; j < columns; j++)
+            {
+                result[i][j] = getElmt(i, j).doubleValue();
+            }
+        }
+
+        return result;
+    }
+
+    public BDMatrix(double[][] input)
+    {
+        rows = input.length;
+        columns = input[0].length;
+        BigDecimal[][] result = new BigDecimal[rows][columns];
+
+        for(int i = 0; i < rows; i++)
+        {
+            for(int j = 0; j < columns; j++)
+            {
+                result[i][j] = BigDecimal.valueOf(input[i][j]);
+            }
+        }
+
+        element = result;
     }
 
     /** MATRIX ARITHMETICS */
