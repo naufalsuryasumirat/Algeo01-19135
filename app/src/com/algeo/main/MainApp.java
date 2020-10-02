@@ -63,10 +63,11 @@ public class MainApp {
                         //Metode matriks balikan
                         case 3 :
                             SPLCalc.hitungInvers();
-//                            solutionToSPL = SPLCalc.getSolution();
+                            solutionToSPL = SPLCalc.getSolution();
                             break;
                         //Kaidah cramer
                         case 4 :
+                            SPLCalc.hitungKramerDBL(SPLQuery.convertToDoubleMatrix());
                             break;
                         default :
                             break;
@@ -108,12 +109,19 @@ public class MainApp {
                                     jenisinput = scan.nextInt();
                                     switch(jenisinput) {
                                         case 1 :
-                                            //filepath salah
-                                            System.out.println("Masukkan nama file");
-                                            String filename = scan.nextLine();
-                                            FileHandler inputMethod = new FileHandler(filename);
+                                            BDMatrix Det = new BDMatrix();
+
+                                            Det = menu_readMatrix(Det);
+                                            BigDecimal resDet = determinanObject.hitungDeterminanOBE(Det);
+
+                                            String determinan = (resDet.toString());
+                                            System.out.println(determinanObject.hitungDeterminanOBE(Det));
+                                            menu_write(determinanObject.hitungDeterminanOBE(Det));
                                             break;
                                         case 2 :
+                                            determinanObject.readData();
+                                            System.out.println(determinanObject.getAttributeDeterminanOBE());
+                                            menu_write(determinanObject.getAttributeDeterminanOBE());
                                             break;
                                     }
                             break;

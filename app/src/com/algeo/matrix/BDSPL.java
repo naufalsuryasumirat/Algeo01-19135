@@ -130,6 +130,13 @@ public class BDSPL {
 
     public void hitungInvers()
     {
+        if(data.rows != data.columns)
+        {
+            solution = new String[1];
+            solution[0] = "Matriks bukan bujur sangkar";
+            return;
+        }
+
         int i,j;
         Inverse inverter = new Inverse(data);
         BDMatrix matrixB = new BDMatrix(data.rows, 1);

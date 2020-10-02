@@ -275,13 +275,13 @@ public class BDMatrix {
             limit = rows;
         }
 
+//        printMatrix("BEFORE UPPERTRIING");
 
         for (int i = 0; i < limit; i++)
         {
             int j = getLeadingIndex(i);
             while (j < i)
             {
-
                 int sRow = getLeadingIndex(j);
                 ratio = getLeadingElmt(i).divide(getLeadingElmt(sRow), mc);
 
@@ -290,8 +290,12 @@ public class BDMatrix {
                 divideRow(sRow, ratio);
 
                 j = getLeadingIndex(i);
+
+//                printMatrix("PROCESSING MATRIX");
             }
         }
+
+//        printMatrix("BEFORE ORDERING");
 
         if (limit == columns)
         {
