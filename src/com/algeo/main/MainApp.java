@@ -241,7 +241,7 @@ public class MainApp {
                 System.out.println("Input nama file tujuan save");
                 FileHandler getMatrix = new FileHandler("app/test/_" + readFileName.nextLine() + ".txt");
                 getMatrix.setOutputString(matrix.convertToString());
-                getMatrix.writeFile("app/test/_" + readFileName.nextLine() + ".txt");
+                getMatrix.writeFile("test/_" + readFileName.nextLine() + ".txt");
         }
 
         return;
@@ -259,7 +259,7 @@ public class MainApp {
                 System.out.println("Input nama file tujuan save");
                 FileHandler getMatrix = new FileHandler("app/test/_" + readFileName.nextLine() + ".txt");
                 getMatrix.setOutputString(input);
-                getMatrix.writeFile("app/test/_" + readFileName.nextLine() + ".txt");
+                getMatrix.writeFile("test/_" + readFileName.nextLine() + ".txt");
         }
 
         return;
@@ -275,11 +275,12 @@ public class MainApp {
                 break;
             case("1"):
                 System.out.println("Input nama file tujuan save");
-                String filename = "app/test/_" + readFileName.nextLine() + ".txt";
+                String filename = "test/_" + readFileName.nextLine() + ".txt";
 
                 FileHandler getMatrix = new FileHandler(filename);
                 getMatrix.setOutputString(number.toPlainString());
                 getMatrix.writeFile(filename);
+                return;
         }
 
         return;
@@ -290,12 +291,11 @@ public class MainApp {
         System.out.println("Input nama file");
         Scanner readFileName = new Scanner(System.in);
 
-        FileHandler getMatrix = new FileHandler("app/test/" + readFileName.nextLine() + ".txt");
+        FileHandler getMatrix = new FileHandler("test/" + readFileName.nextLine() + ".txt");
         getMatrix.readFile();
         matrix = getMatrix.getData();
 
         return matrix;
     }
-
 }
 

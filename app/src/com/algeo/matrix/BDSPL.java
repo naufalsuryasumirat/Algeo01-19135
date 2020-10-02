@@ -284,13 +284,6 @@ public class BDSPL {
                     result += row[0];
                     moreThanOneVar = true;
                 } else {
-//                    if(i == row.length-1)
-//                    {
-//                        result += row[i].stripTrailingZeros();
-//                        moreThanOneVar = true;
-//                    } else {
-//
-//                    }
                     result += row[i].stripTrailingZeros() + "x" + (i);
                     moreThanOneVar = true;
                 }

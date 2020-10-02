@@ -48,6 +48,9 @@ public class MainApp {
 
                     BDSPL SPLCalc = new BDSPL(SPLQuery);
                     String solutionToSPL = "";
+                    SPLQuery.printMatrix("ORIGINAL");
+                    SPLQuery.reducedEchelon();
+                    SPLQuery.printMatrix("REDUCED ECHELON");
 
                     switch(state2) {
                         //Metode eliminasi gauss

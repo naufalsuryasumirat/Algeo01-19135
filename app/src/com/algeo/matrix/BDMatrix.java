@@ -280,7 +280,7 @@ public class BDMatrix {
         for (int i = 0; i < limit; i++)
         {
             int j = getLeadingIndex(i);
-            while (j < i)
+            while (j < i && getLeadingIndex(i) == getLeadingIndex(j))
             {
                 int sRow = getLeadingIndex(j);
                 ratio = getLeadingElmt(i).divide(getLeadingElmt(sRow), mc);
@@ -291,7 +291,7 @@ public class BDMatrix {
 
                 j = getLeadingIndex(i);
 
-//                printMatrix("PROCESSING MATRIX");
+                printMatrix("PROCESSING MATRIX");
             }
         }
 
