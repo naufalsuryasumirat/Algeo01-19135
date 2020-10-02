@@ -16,186 +16,9 @@ public class MainApp {
         int state2;
         int jenisinput;
         int write;
-        /*
-        System.out.println("Hello world");
-        Matrix test = new Matrix(1, 1);
-        test.Test();
 
-        System.out.println("Testing BDMatrix");
-        BigDecimal[][] testMatrix = {
-                {
-                        new BigDecimal(1),
-                        new BigDecimal(2),
-                        new BigDecimal(1),
-                        new BigDecimal(3),
-                        new BigDecimal(1),
-                        new BigDecimal(0),
-                        new BigDecimal(2),
-                },
-                {
-                        new BigDecimal(3),
-                        new BigDecimal(4),
-                        new BigDecimal(2),
-                        new BigDecimal(5),
-                        new BigDecimal(1),
-                        new BigDecimal(0),
-                        new BigDecimal(-1),
-                },
-                {
-                        new BigDecimal(3),
-                        new BigDecimal(4),
-                        new BigDecimal(4),
-                        new BigDecimal(5),
-                        new BigDecimal(0),
-                        new BigDecimal(1),
-                        new BigDecimal(1),
-                },
-                {
-                        new BigDecimal(6),
-                        new BigDecimal(7),
-                        new BigDecimal(4),
-                        new BigDecimal(3),
-                        new BigDecimal(3),
-                        new BigDecimal(3),
-                        new BigDecimal(3),
-                },
-        };
-
-
-        BigDecimal[][] testMatrix2 = {
-                {
-                    new BigDecimal(5),
-                    new BigDecimal(6),
-                    new BigDecimal(1),
-                    new BigDecimal(3),
-                },
-                {
-                    new BigDecimal(7),
-                    new BigDecimal(8),
-                    new BigDecimal(1),
-                    new BigDecimal(3),
-                }
-        };
-
-        BDMatrix A = new BDMatrix(2, 2, testMatrix);
-        BDMatrix B = new BDMatrix(2, 2, testMatrix2);
-
-        A.crossProductWith(B).printMatrix();
-
-        FileHandler hihi = new FileHandler("test.txt");
-        hihi.readFile();
-
-        BDMatrix C = hihi.getData();
-        C.printMatrix("THIS IS C");*/
-
-//        A.printMatrix();
-//
-//        BigDecimal detA = new BDDeterminan(A).hitungDeterminanOBE(A).stripTrailingZeros();
-//        System.out.println(detA);
-//
-//        A.printMatrix();
-//        A.reducedEchelon();
-//        A.printMatrix("REDUCED ECHELON FORM");
-
-
-//        A.printMatrix("ORIGINAL");
-//        System.out.println("===============================");
-//        A.reducedEchelon();
-//        A.printMatrix("REDUCED ECHELON");
-        /*BDInterpolasi interpolasiObject = new BDInterpolasi();
-        interpolasiObject.readData();
-        interpolasiObject.interpolate();
-        System.out.println(interpolasiObject.getPersamaan());
-        for (int yo = 0; yo < 6; yo++) {
-            System.out.println(interpolasiObject.getTitikInterpolasi());
-        }*/
-        //dengan masukkan file
-        /*
-        BigDecimal[][] testMatrix = {
-                {
-                    new BigDecimal(0.1),
-                    new BigDecimal(0.003),
-                },
-                {
-                    new BigDecimal(0.3),
-                    new BigDecimal(0.067)
-                },
-                {
-                    new BigDecimal(0.5),
-                    new BigDecimal(0.148)
-                },
-                {
-                    new BigDecimal(0.7),
-                    new BigDecimal(0.248)
-                },
-                {
-                    new BigDecimal(0.9),
-                    new BigDecimal(0.370)
-                },
-                {
-                    new BigDecimal(1.1),
-                    new BigDecimal(0.518)
-                },
-                {
-                    new BigDecimal(1.3),
-                    new BigDecimal(0.697)
-                }
-        };
-        //Interpolasi dari file
-        BDMatrix A = new BDMatrix(7, 2, testMatrix);
-        Interpolasi interpolasiObject = new Interpolasi(A);
-        interpolasiObject.interpolasi();
-        System.out.println(interpolasiObject.getPersamaan());
-        System.out.println(interpolasiObject.getTitikInterpolasi());
-
-        //Interpolate interpolator = new Interpolate(arrayTitik)
-        //interpolator.interpolate()
-        //fileHandler(address, interpolator.getPersamaan, WRITE)
-
-        //Interpolasi dengan user input
-        Interpolasi interpolasiObject2 = new Interpolasi();
-        interpolasiObject2.readData();
-        interpolasiObject2.interpolasi();
-        System.out.println(interpolasiObject2.getPersamaan());
-        System.out.println(interpolasiObject2.getTitikInterpolasi());
-        */
-        /*
-        BigDecimal[][] testDeterminan = {
-                {
-                        new BigDecimal(1),
-                        new BigDecimal(0),
-                        new BigDecimal(1)
-                },
-                {
-                        new BigDecimal(2),
-                        new BigDecimal(1),
-                        new BigDecimal(2)
-                },
-                {
-                        new BigDecimal(3),
-                        new BigDecimal(4),
-                        new BigDecimal(4)
-                }
-        };
-        BDMatrix DET = new BDMatrix(3, 3, testDeterminan);
-
-        //Determinan dengan user input
-
-
-
-        //Determinan dari file
-        BDDeterminan determinanObjectFile = new BDDeterminan();
-        System.out.println(determinanObjectFile.hitungDeterminanOBE(DET));
-        System.out.println(determinanObjectFile.hitungDeterminanEK(DET, DET.getRows()));
-
-        //BDInterpolasi interpolasiObject = new BDInterpolasi();
-        //interpolasiObject.interpolasi();
-        //Interpolasi interpolasiObjectYO = new Interpolasi();
-        //interpolasiObjectYO.interpolasi();
-        */
         BDDeterminan determinanObject = new BDDeterminan();
         Interpolasi interpolasiObject = new Interpolasi();
-
 
         state = 0;
         while (state != 6) {
@@ -236,7 +59,7 @@ public class MainApp {
                                     Scanner detScan = new Scanner(System.in);
                                     System.out.println("Masukkan nama file");
                                     String filename = detScan.nextLine();
-                                    FileHandler inputMethod = new FileHandler("../../../../../test/" + filename + ".txt");
+                                    FileHandler inputMethod = new FileHandler("app/test/" + filename + ".txt");
                                     inputMethod.readFile();
                                     BDMatrix Det = inputMethod.getData();
                                     String determinan = (determinanObject.hitungDeterminanEK(Det, Det.getRows())).toString();
@@ -363,5 +186,16 @@ public class MainApp {
     }
     private static void menu_write() {
         System.out.println("Apakah akan di save ke file? 0 untuk Tidak, 1 untuk Ya");
+    }
+
+    private static void menu_readMatrix(BDMatrix matrix)
+    {
+        System.out.println("Input nama file");
+        Scanner readFileName = new Scanner(System.in);
+
+        FileHandler getMatrix = new FileHandler("app/test/" + readFileName.nextLine() + ".txt");
+        getMatrix.readFile();
+        matrix = getMatrix.getData();
+        matrix.printMatrix();
     }
 }
