@@ -306,6 +306,8 @@ public class BDMatrix {
         {
             divideRow(i, getLeadingElmt(i));
         }
+
+//        printMatrix("ECHELON");
     }
 
     public void reducedEchelon() {

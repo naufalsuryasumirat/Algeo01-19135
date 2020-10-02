@@ -23,6 +23,7 @@ public class BDSPL {
         int i,j,k;
         int solCount = 0;
 
+//        data.printMatrix();
         calcSPL(data);
     }
 
@@ -140,13 +141,13 @@ public class BDSPL {
             }
         }
 
-        matrixB.printMatrix();
+//        matrixB.printMatrix();
 
         data = inverter.getInverse();
-        data.printMatrix();
+//        data.printMatrix();
 
         matrixX.element = data.dotMatrix(matrixB);
-        matrixX.printMatrix();
+//        matrixX.printMatrix();
 
         for (i = 0; i < matrixX.rows; ++i) {
             for (j = 0; j < matrixX.columns; ++j) {
@@ -195,6 +196,8 @@ public class BDSPL {
             }
         }
 
+
+
         // CONVERTING INPUT INTO SOLUTION MATRIX FORM
         BDMatrix solutionData = new BDMatrix(input.columns-1, input.columns);
 
@@ -212,6 +215,17 @@ public class BDSPL {
                 }
             }
         }
+
+        for(int i = 0; i < solutionData.rows; i++)
+        {
+            if(solutionData.getLeadingIndex(i) == solutionData.columns-1)
+            {
+                solutionData.setElmt(i, solutionData.getLeadingIndex(i), BigDecimal.ZERO);
+            }
+        }
+
+//        solutionData.printMatrix("THIS IS SOLUTION DATA");
+
         solutionMatrix = solutionData;
         parseSolutionMatrix();
     }
@@ -263,12 +277,18 @@ public class BDSPL {
                     result += row[0];
                     moreThanOneVar = true;
                 } else {
-                    result += row[i].stripTrailingZeros() + "x" + (i+1);
+//                    if(i == row.length-1)
+//                    {
+//                        result += row[i].stripTrailingZeros();
+//                        moreThanOneVar = true;
+//                    } else {
+//
+//                    }
+                    result += row[i].stripTrailingZeros() + "x" + (i);
                     moreThanOneVar = true;
                 }
             }
         }
-
         return result;
     }
 
