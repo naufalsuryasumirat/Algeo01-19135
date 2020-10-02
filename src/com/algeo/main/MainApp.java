@@ -3,7 +3,7 @@ package com.algeo.main;
 import java.sql.SQLOutput;
 import java.util.Scanner;
 
-import algeo.matrix.*;
+import com.algeo.matrix.*;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
@@ -67,13 +67,14 @@ public class MainApp {
                             break;
                         //Kaidah cramer
                         case 4 :
-                            SPLCalc.hitungKramerDBL(SPLQuery.convertToDoubleMatrix());
+                            solutionToSPL = SPLCalc.hitungKramerDBL(SPLQuery.convertToDoubleMatrix());
                             break;
                         default :
                             break;
                     }
-
                     System.out.println(solutionToSPL);
+                    menu_write(solutionToSPL);
+
                     break;
                 case 2 :
                     menu_determinan();
@@ -198,7 +199,9 @@ public class MainApp {
                             break;
                         }
                     System.out.println(reglinner.getEquation());
+                    menu_write(reglinner.getEquation());
                     System.out.println(reglinner.getResult());
+                    menu_write(reglinner.getResult());
                     break;
             }
         }

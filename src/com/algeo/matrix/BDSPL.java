@@ -75,10 +75,10 @@ public class BDSPL {
         }
     }
 
-    public void hitungKramerDBL(double[][] matrixAugmented){
+    public String hitungKramerDBL(double[][] matrixAugmented){
         int i,j,k,l;
         double detA;
-        String[] solusi = new String[matrixAugmented.length];
+        String solusi = "";
 
         double[][] matrixA = new double[matrixAugmented.length][matrixAugmented.length];
         for (i=0;i<matrixAugmented.length;++i){
@@ -95,8 +95,9 @@ public class BDSPL {
         }
 
         if (matrixAugmented.length != matrixAugmented[0].length-1){
-            solusi[0] = "Matriks A bukan matriks bujur sangkar";
-            System.out.println(solusi[0]);
+            solusi = "Matriks A bukan matriks bujur sangkar";
+            System.out.println(solusi);
+            return solusi;
         }
         else {
             Determinan det = new Determinan();
@@ -116,16 +117,10 @@ public class BDSPL {
                 }
 
                 ArrayDet[j] = det.hitungDeterminanOBE(tempMatrix, matrixAugmented.length);
-                //System.out.println("det A"+(j+1)+" = "+ArrayDet[j]);
+                solusi += "x"+(j+1)+" = "+(ArrayDet[j]/detA)+"\n";
             }
-
-            System.out.println("det A"+ " = "+detA);
-            for (i=0; i< solusi.length; ++i) {
-                solusi[i] = ("x"+(i+1)+" = "+(ArrayDet[i]/detA));
-                System.out.println(solusi[i]);
-            }
+            return solusi;
         }
-
     }
 
     public void hitungInvers()
