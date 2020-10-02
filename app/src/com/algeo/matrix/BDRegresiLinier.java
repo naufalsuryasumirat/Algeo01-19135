@@ -32,14 +32,15 @@ public class BDRegresiLinier {
         createLeastSquareNormalEquations();
         equationData.printMatrix("THIS IS DATA");
 
-//        solve();
+        solve();
     }
 
     private void solve()
     {
-           BDSPL solver = new BDSPL(equationData);
-           solver.hitungGaussJordan();
-
+//           BDSPL solver = new BDSPL(equationData);
+//           solver.hitungGaussJordan();
+           equationData.reducedEchelon();
+           equationData.printMatrix("SOLUTION");
     }
 
     private void createLeastSquareNormalEquations()

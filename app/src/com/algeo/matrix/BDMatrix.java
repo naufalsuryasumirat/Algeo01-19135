@@ -449,6 +449,12 @@ public class BDMatrix {
     }
 
     /** ROW ARITHMETICS */
+
+    public boolean isAllZero(int row)
+    {
+        return (getLeadingIndex(row) == columns-1 && getLeadingElmt(row).compareTo(BigDecimal.ZERO) == 0);
+    }
+
     public void addRows(int row1, int row2)
     {
         BigDecimal[] temp = new BigDecimal[columns];

@@ -139,37 +139,44 @@ public class MainApp {
 
         BigDecimal[][] regTester = {
                 {
-                        new BigDecimal(1),
-                        new BigDecimal(15),
+                        new BigDecimal(0),
+                        new BigDecimal(0),
                         new BigDecimal(1)
                 },
                 {
-                        new BigDecimal(2),
-                        new BigDecimal(1),
+                        new BigDecimal(0),
+                        new BigDecimal(0),
                         new BigDecimal(2)
                 },
                 {
-                        new BigDecimal(3),
-                        new BigDecimal(4),
+                        new BigDecimal(0),
+                        new BigDecimal(0),
                         new BigDecimal(4)
                 }
         };
 
-        FileHandler hihi = new FileHandler("reglin.txt");
+//        BDMatrix testNoSolution = new BDMatrix(3, 3, regTester);
+//        testNoSolution.reducedEchelon();
+//        testNoSolution.printMatrix("THIS IS SOLUTION TO REGTESTER");
+
+        FileHandler hihi = new FileHandler("test.txt");
         hihi.readFile();
 
         BDMatrix C = hihi.getData();
         C.printMatrix("THIS IS C");
 
-//        FileHandler huhi = new FileHandler("test2.txt");
-//        huhi.readFile();
+        BDSPL solveThis = new BDSPL(C);
+        solveThis.hitungGaussJordan();
 //
-//        BDMatrix D = huhi.getData();
-//        D.printMatrix("THIS IS D");
+////        FileHandler huhi = new FileHandler("test2.txt");
+////        huhi.readFile();
+////
+////        BDMatrix D = huhi.getData();
+////        D.printMatrix("THIS IS D");
+////
+////        C.crossProductWith(D).printMatrix("THIS IS THE CROSS PRODUCT");
 //
-//        C.crossProductWith(D).printMatrix("THIS IS THE CROSS PRODUCT");
-
-        BDRegresiLinier reglin = new BDRegresiLinier(C);
+//        BDRegresiLinier reglin = new BDRegresiLinier(C);
 //
 //        C.reducedEchelon();
 //
