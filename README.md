@@ -43,3 +43,13 @@ Letak Java ByteCode
     - Matrix.class
     - RegresiLinear.class
     - SPL.class
+
+Letak Laporan
+
+3. doc
+
+Letak file test
+4. test
+
+folder src terletak seperti di atas
+folder bin terletak seperti di atas
