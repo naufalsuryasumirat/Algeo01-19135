@@ -67,5 +67,4 @@ public class BDRegresiLinier {
         equationData = X;
         equationData.addHorizontal(Y);
     }
-
 }

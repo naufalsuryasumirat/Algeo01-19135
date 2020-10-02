@@ -105,7 +105,26 @@ public class MainApp {
                     }
                 case 3 :
                     //Matriks Balikan
-
+                    menu_input();
+                    jenisinput = scan.nextInt();
+                    BDMatrix toInvert = new BDMatrix();
+                    BDMatrix invertedResult = new BDMatrix();
+                    switch(jenisinput) {
+                        case 1:
+                            toInvert = menu_readMatrix(toInvert);
+                            Inverse inverted = new Inverse(toInvert);
+                            invertedResult = inverted.getInverse();
+                            break;
+                        case 2:
+                            toInvert.readUserMatrix();
+                            Inverse uInverted = new Inverse(toInvert);
+                            invertedResult = uInverted.getInverse();
+                            break;
+                        default:
+                            break;
+                    }
+                    invertedResult.printMatrix("INVERTED MATRIX");
+                    menu_write(invertedResult);
                     break;
                 case 4 :
                     //Interpolasi Polinom
