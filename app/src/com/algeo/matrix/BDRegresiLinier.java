@@ -1,13 +1,15 @@
 package com.algeo.matrix;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class BDRegresiLinier {
 
     BDMatrix data, B, X, Y;
     BDMatrix equationData;
-    BigDecimal Xk;
+    BDMatrix Xk;
+    BigDecimal result;
 
     public BDRegresiLinier()
     {
@@ -28,6 +30,7 @@ public class BDRegresiLinier {
 
         equation.crossProductWith(equationData);
 
+        result = equation.getElmt(0, 0);
         return equation.getElmt(0, 0);
     }
 
@@ -52,9 +55,21 @@ public class BDRegresiLinier {
             BDMatrix row = new BDMatrix(1, N);
             row.readUserMatrix();
             data.addNewRow(row);
+
+            System.out.println("BACA DATA LAGI? 1 jika ya, 0 jika tidak");
+            int nextData = dataReader.nextInt();
+
+            if(nextData != 1)
+            {
+                moreInput = false;
+            }
+
         }
 
         processData(data);
+
+        System.out.println("INPUT Xk");
+        System.out.println(readAssertY());
     }
 
     private void processData(BDMatrix inputData)

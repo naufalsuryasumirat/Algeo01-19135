@@ -161,8 +161,13 @@ public class MainApp {
                     //Regresi Linier Berganda
                     menu_input();
                     jenisinput = scan.nextInt();
+                    BDMatrix reglinData = new BDMatrix();
+
                     switch(jenisinput) {
                         case 1 :
+                            reglinData = menu_readMatrix(reglinData);
+                            BDRegresiLinier reglinner = new BDRegresiLinier(reglinData);
+                            
                             break;
                         case 2 :
                             break;
